@@ -11,13 +11,13 @@ DPSCYCLE_SHAMAN_LOCALE = {
 };
 
 if GetLocale() == "zhCN" then
-	DPSCYCLE_PALADIN_LOCALE = {
+	DPSCYCLE_SHAMAN_LOCALE = {
 		["title"] = "萨满",
 		["lightning selection"] = "闪电法术选择:",
 	};
 
 elseif GetLocale() == "zhTW" then
-	DPSCYCLE_PALADIN_LOCALE = {
+	DPSCYCLE_SHAMAN_LOCALE = {
 		["title"] = "薩滿",
 		["lightning selection"] = "閃電法術选择:",
 	};

@@ -158,6 +158,6 @@ group.OnSelectionChanged = function(self, value) module.db.lightning = value end
 anchor = group[-1]
 group = page:CreateMultiSelectionGroup(DL["misc"])
 group:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -12)
-group:AddButton(string.format(DL["keep"], MAGMA_TOTEM), "magma_totem")
+-- group:AddButton(string.format(DL["keep"], MAGMA_TOTEM), "magma_totem")
 group.OnCheckInit = function(self, value) return module.db[value] end
 group.OnCheckChanged = function(self, value, checked) module.db[value] = checked end

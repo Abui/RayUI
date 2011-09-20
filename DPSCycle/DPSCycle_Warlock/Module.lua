@@ -49,8 +49,10 @@ local MOLTEN_CORE = GetSpellInfo(71165)
 local DECIMATION = GetSpellInfo(63167)
 local SOUL_FIRE = GetSpellInfo(6353)
 
+local SUMMON_DOOMGUARD = GetSpellInfo(18540)
+
 local CURSES = { CURSE_OF_THE_ELEMENTS, CURSE_OF_TONGUES, CURSE_OF_WEAKNESS, CURSE_OF_EXHAUSTION }
-local COOLDOWNS = {DEMON_SOUL, SOULBURN, METAMORPHOSIS}
+local COOLDOWNS = {DEMON_SOUL, SOULBURN, METAMORPHOSIS, SUMMON_DOOMGUARD}
 
 local debuffs = {}
 local armors = {}
@@ -77,7 +79,7 @@ function module:OnInitialize(db, firstTime)
 	self:RegisterUnitAura("player", DECIMATION)	
 	self:RegisterUnitAura("target", IMMOLATE, 1, 1)
 	self:RegisterUnitAura("target", CORRUPTION, 1, 1)
-	self:RegisterUnitAura("target", HAUNT, 1, 1)
+	-- self:RegisterUnitAura("target", HAUNT, 1, 1)
 	self:RegisterUnitAura("target", UNSTABLE_AFFLICTION, 1, 1)
 	self:RegisterUnitAura("target", CURSE_OF_DOOM, 1, 1)
 	self:RegisterUnitAura("target", CURSE_OF_AGONY, 1, 1)	
@@ -194,7 +196,7 @@ function module:GetDebuffTime(debuff)
 	if debuff then
 		local expires = debuffs[debuff]
 		if expires then
-			return expires - GetTime()
+			return expires - GetTime() - 1
 		end
 	end
 end
@@ -240,7 +242,7 @@ function module:AfflictionProc(isBoss)
 		self:AddSequenceSpell(curse, timeLeft)
 	end
 
-	self:AddSequenceSpell(HAUNT, self:GetDebuffTime(HAUNT))
+	self:AddSequenceSpell(HAUNT)
 	self:AddSequenceSpell(CURSE_OF_DOOM, self:GetDebuffTime(CURSE_OF_DOOM) or 0)
 	self:AddSequenceSpell(CORRUPTION, self:GetDebuffTime(CORRUPTION) or 0)
 	self:AddSequenceSpell(UNSTABLE_AFFLICTION, self:GetDebuffTime(UNSTABLE_AFFLICTION) or 0)	

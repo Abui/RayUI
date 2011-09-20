@@ -104,7 +104,14 @@ local function SpellButton_SetSpell(self, spellId, spellName, isPet)
 	if spellId then
 		self.spellName = spellName
 		self.icon:SetTexture(GetSpellTexture(spellId, isPet and BOOKTYPE_PET or BOOKTYPE_SPELL))
+		self.icon:SetTexCoord(.1, .9, .1, .9)
 		self.icon:Show()
+		if not self.bg then
+			self.bg = CreateFrame("Frame", nil, self)
+			self.bg:Point("TOPLEFT", -2, 2)
+			self.bg:Point("BOTTOMRIGHT", 2, -2)
+			self.bg:CreateShadow("Background")
+		end
 		self.cd:Show()
 	else
 		self.spellName = nil
@@ -117,7 +124,8 @@ end
 
 local function SpellButton_OnEnter(self)
 	if self.spellId then
-		GameTooltip_SetDefaultAnchor(GameTooltip, self)
+		-- GameTooltip_SetDefaultAnchor(GameTooltip, self)
+		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:SetSpellBookItem(self.spellId, self.isPet and BOOKTYPE_PET or BOOKTYPE_SPELL)
 		GameTooltip:Show()
 	end
@@ -502,10 +510,10 @@ end
 
 local cooldownPanel = CreateFrame("Frame", "DPSCycleCooldownPanel", iconFrame)
 DPSCycle.cooldownPanel = cooldownPanel
-cooldownPanel:SetScale(0.5)
+cooldownPanel:SetScale(.7)
 cooldownPanel:SetWidth(BUTTON_SIZE)
 cooldownPanel:SetHeight(BUTTON_SIZE)
-cooldownPanel:SetPoint("BOTTOM", iconFrame, "TOP", 0, BUTTON_GAP * 2)
+cooldownPanel:SetPoint("BOTTOMLEFT", iconFrame, "TOPLEFT", 0, BUTTON_GAP * (1/DPSCycleCooldownPanel:GetScale()))
 cooldownPanel.enableCursor = true
 cooldownPanel:Hide()
 
@@ -597,7 +605,7 @@ for i = 1, MAX_COOLDOWN_BUTTONS do
 	if i == 1 then
 		button:SetPoint("LEFT")
 	else
-		button:SetPoint("LEFT", cooldownButtons[i - 1], "RIGHT", BUTTON_GAP, 0)
+		button:SetPoint("LEFT", cooldownButtons[i - 1], "RIGHT", BUTTON_GAP * (1/DPSCycleCooldownPanel:GetScale()), 0)
 	end
 end
 
