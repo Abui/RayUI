@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Rogue(Assassination/Combat)|r
+## Title-zhCN: DPSCycle - |cff00ff00潜行者(刺杀/战斗)|r
+## Title-zhTW: DPSCycle - |cff00ff00盜賊(刺殺/戰鬥)|r
+## Version: 2.0
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

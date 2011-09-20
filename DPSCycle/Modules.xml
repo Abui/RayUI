@@ -1,0 +1,33 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="DPSCycle_DeathKnight\Localization.lua"/>
+	<Script file="DPSCycle_DeathKnight\Module.lua"/>
+	
+	<Script file="DPSCycle_Druid\Localization.lua"/>
+	<Script file="DPSCycle_Druid\Module.lua"/>
+	
+	<Script file="DPSCycle_Hunter\Localization.lua"/>
+	<Script file="DPSCycle_Hunter\Module.lua"/>
+	
+	<Script file="DPSCycle_Mage\Localization.lua"/>
+	<Script file="DPSCycle_Mage\Module.lua"/>
+	
+	<Script file="DPSCycle_Paladin\Localization.lua"/>
+	<Script file="DPSCycle_Paladin\Module.lua"/>
+	
+	<Script file="DPSCycle_PriestShadow\Localization.lua"/>
+	<Script file="DPSCycle_PriestShadow\Module.lua"/>
+	
+	<Script file="DPSCycle_Rogue\Localization.lua"/>
+	<Script file="DPSCycle_Rogue\Module.lua"/>
+	
+	<Script file="DPSCycle_Shaman\Localization.lua"/>
+	<Script file="DPSCycle_Shaman\Module.lua"/>
+	
+	<Script file="DPSCycle_Warlock\Localization.lua"/>
+	<Script file="DPSCycle_Warlock\Module.lua"/>
+	
+	<Script file="DPSCycle_Warrior\Localization.lua"/>
+	<Script file="DPSCycle_Warrior\Module.lua"/>
+
+</Ui>

@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Hunter(Marksmanship)|r
+## Title-zhCN: DPSCycle - |cff00ff00猎人(射击)|r
+## Title-zhTW: DPSCycle - |cff00ff00獵人(射擊)|r
+## Version: 2.2
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

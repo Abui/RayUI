@@ -1,0 +1,21 @@
+## Interface:40100
+## Title: DPSCycle
+## Version: 4.10
+## Author: Abin
+## Fix: Ray
+## OptionalDeps: ButtonFacade
+## SavedVariables: DPSCycleDB
+
+Includes\InterfaceOptionPage-1.0.lua
+Includes\ButtonFacadeSupport-1.0.lua
+
+Locales\enUS.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
+
+DPSCycle.lua
+GUI.lua
+Options.lua
+API.lua
+
+Modules.xml

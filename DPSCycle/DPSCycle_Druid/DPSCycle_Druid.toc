@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Druid(Balance/Feral)|r
+## Title-zhCN: DPSCycle - |cff00ff00德鲁伊(平衡/野性)|r
+## Title-zhTW: DPSCycle - |cff00ff00德魯伊(平衡/野性)|r
+## Version: 2.11
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

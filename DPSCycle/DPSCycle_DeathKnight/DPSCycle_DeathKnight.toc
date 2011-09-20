@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Death Knight|r
+## Title-zhCN: DPSCycle - |cff00ff00死亡骑士|r
+## Title-zhTW: DPSCycle - |cff00ff00死亡騎士|r
+## Version: 2.0
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

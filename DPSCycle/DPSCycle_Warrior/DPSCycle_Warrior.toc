@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Warrior|r
+## Title-zhCN: DPSCycle - |cff00ff00战士|r
+## Title-zhTW: DPSCycle - |cff00ff00戰士|r
+## Version: 2.2
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

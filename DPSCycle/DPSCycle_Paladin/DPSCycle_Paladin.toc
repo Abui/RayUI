@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Paladin|r
+## Title-zhCN: DPSCycle - |cff00ff00圣骑士|r
+## Title-zhTW: DPSCycle - |cff00ff00聖騎士|r
+## Version: 2.1
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

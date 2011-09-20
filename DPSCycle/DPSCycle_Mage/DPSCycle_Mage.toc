@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Mage|r
+## Title-zhCN: DPSCycle - |cff00ff00法师|r
+## Title-zhTW: DPSCycle - |cff00ff00法師|r
+## Version: 2.1
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

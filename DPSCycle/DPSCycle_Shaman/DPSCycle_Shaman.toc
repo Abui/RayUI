@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Shaman|r
+## Title-zhCN: DPSCycle - |cff00ff00萨满|r
+## Title-zhTW: DPSCycle - |cff00ff00薩滿|r
+## Version: 2.2
+## Author: bash99
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Warlock|r
+## Title-zhCN: DPSCycle - |cff00ff00术士|r
+## Title-zhTW: DPSCycle - |cff00ff00術士|r
+## Version: 2.10
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+

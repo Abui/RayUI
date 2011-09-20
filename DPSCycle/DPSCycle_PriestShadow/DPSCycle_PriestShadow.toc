@@ -1,0 +1,11 @@
+﻿## Interface: 30300
+## Title: DPSCycle - |cff00ff00Priest(Shadow)|r
+## Title-zhCN: DPSCycle - |cff00ff00牧师(暗影)|r
+## Title-zhTW: DPSCycle - |cff00ff00牧師(暗影)|r
+## Version: 2.11
+## Author: Abin
+## Dependencies: DPSCycle
+
+Localization.lua
+Module.lua
+
