@@ -2,6 +2,7 @@ local RayUIWatcher = LibStub("AceAddon-3.0"):NewAddon("RayUI_Watcher", "AceConso
 
 local _, ns = ...
 local _, myclass = UnitClass("player")
+local page
 
 local modules = {}
 
@@ -45,6 +46,40 @@ function RayUIWatcher:OnInitialize()
 	for _, t in ipairs(watchers) do
 		self:NewWatcher(t)
 	end
+		
+	local lockgroup = page:CreateMultiSelectionGroup("锁定/解锁模块")
+	page:AnchorToTopLeft(lockgroup)
+	lockgroup:AddButton("锁定", "lock")
+	lockgroup.OnCheckInit = function(self, value) 
+			return true
+	end
+	lockgroup.OnCheckChanged = function(self, value, checked)
+		for _, v in pairs(modules) do
+			v:TestMode()
+		end
+	end
+	
+	local group = page:CreateMultiSelectionGroup("选择启用的模块")
+	page:AnchorToTopLeft(group, 0, -50)
+	for _, v in pairs(modules) do
+		group:AddButton(v:GetName(), v:GetName())
+	end
+	group.OnCheckInit = function(self, value) 
+		if db.profiles[myclass][value] ~= nil then
+			return db.profiles[myclass][value]
+		else
+			return RayUIWatcher:GetModule(value):IsEnabled()
+		end
+	end
+	group.OnCheckChanged = function(self, value, checked)
+		if checked then
+			RayUIWatcher:GetModule(value):Enable()
+			db.profiles[myclass][value] = true
+		else
+			RayUIWatcher:GetModule(value):Disable()
+			db.profiles[myclass][value] = false
+		end
+	end
 end
 
 function RayUIWatcher:OnEnable()
@@ -61,6 +96,19 @@ function RayUIWatcher:NewWatcher(data)
 		return
 	end
 	local module = self:NewModule(data.name, "AceConsole-3.0", "AceEvent-3.0")
+	
+	function module:OnEnable()
+		if self.parent then
+			self.parent:Show()
+		end
+	end
+	
+	function module:OnDisable()
+		self:Print("模块已禁用")
+		if self.parent then
+			self.parent:Hide()
+		end
+	end
 	
 	function module:CreateButton()
 		-- local button=CreateFrame("Button", nil, self.parent, "SecureActionButtonTemplate")
@@ -148,6 +196,7 @@ function RayUIWatcher:NewWatcher(data)
 	end
 	
 	function module:TestMode()
+		if not self:IsEnabled() then return end
 		if self.testmode ~= true then
 			self.testmode = true
 			local num = 1
@@ -273,6 +322,30 @@ function RayUIWatcher:NewWatcher(data)
 	
 	tinsert(modules, module)
 end
+
+page = UICreateInterfaceOptionPage("RayUI_WatcherOptionPage", RayUIWatcher:GetName(), "一个很2B的技能监视")
+RayUIWatcher.optionPage = page
+page.title:SetText(RayUIWatcher:GetName().." "..GetAddOnMetadata("RayUI_Watcher", "Version"))
+page:RegisterEvent("VARIABLES_LOADED")
+page:SetScript("OnEvent", function(self, event)
+	if event == "VARIABLES_LOADED" then
+
+		if type(RayUI_WatcherDB) ~= "table" then
+			RayUI_WatcherDB = {}
+		end
+
+		db = RayUI_WatcherDB
+
+		if type(db.profiles) ~= "table" then
+			db.profiles = {}
+		end
+		
+		if type(db.profiles[myclass]) ~= "table" then
+			db.profiles[myclass] = {}
+		end
+		
+	end
+end)
 
 SLASH_TESTMODE1="/testmode"
 SlashCmdList["TESTMODE"]=function(msg)
