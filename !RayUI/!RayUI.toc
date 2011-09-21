@@ -43,5 +43,3 @@ oUF_Freeb\plugins\Movable.lua
 
 mini\mini.xml
 Filger\Filger.xml
-
-test\test.xml
