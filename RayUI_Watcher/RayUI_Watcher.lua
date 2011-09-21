@@ -46,7 +46,7 @@ function RayUIWatcher:OnInitialize()
 	for _, t in ipairs(watchers) do
 		self:NewWatcher(t)
 	end
-		
+	
 	local lockgroup = page:CreateMultiSelectionGroup("锁定/解锁模块")
 	page:AnchorToTopLeft(lockgroup)
 	lockgroup:AddButton("锁定", "lock")
@@ -64,7 +64,7 @@ function RayUIWatcher:OnInitialize()
 	for _, v in pairs(modules) do
 		group:AddButton(v:GetName(), v:GetName())
 	end
-	group.OnCheckInit = function(self, value) 
+	group.OnCheckInit = function(self, value)
 		if db.profiles[myclass][value] ~= nil then
 			return db.profiles[myclass][value]
 		else
@@ -101,6 +101,7 @@ function RayUIWatcher:NewWatcher(data)
 		if self.parent then
 			self.parent:Show()
 		end
+		self:Update()
 	end
 	
 	function module:OnDisable()
@@ -260,8 +261,12 @@ function RayUIWatcher:NewWatcher(data)
 		self:Update()
 	end
 	
-	function module:PLAYER_ENTERING_WORLD()
-		self:Update()
+	function module:PLAYER_ENTERING_WORLD()		
+		if db.profiles[myclass][self:GetName()] == false then
+			self:Disable()
+		else
+			self:Update()
+		end
 	end
 	
 	module.parent = CreateFrame("Frame", data.name, UIParent)
@@ -343,7 +348,6 @@ page:SetScript("OnEvent", function(self, event)
 		if type(db.profiles[myclass]) ~= "table" then
 			db.profiles[myclass] = {}
 		end
-		
 	end
 end)
 
