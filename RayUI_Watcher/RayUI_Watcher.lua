@@ -51,12 +51,17 @@ function RayUIWatcher:OnInitialize()
 	page:AnchorToTopLeft(lockgroup)
 	lockgroup:AddButton("锁定", "lock")
 	lockgroup.OnCheckInit = function(self, value) 
-			return true
+			if db.lock ~= nil then
+			return db.lock
+		else
+			return false
+		end
 	end
 	lockgroup.OnCheckChanged = function(self, value, checked)
 		for _, v in pairs(modules) do
-			v:TestMode()
+			v:TestMode(checked)
 		end
+		db.lock = checked == 1 and true or false
 	end
 	
 	local group = page:CreateMultiSelectionGroup("选择启用的模块")
@@ -196,9 +201,9 @@ function RayUIWatcher:NewWatcher(data)
 		num = self:CheckAura("focus","DEBUFF",num)	
 	end
 	
-	function module:TestMode()
+	function module:TestMode(arg)
 		if not self:IsEnabled() then return end
-		if self.testmode ~= true then
+		if arg == true or self.testmode ~= true then
 			self.testmode = true
 			local num = 1
 			module:UnregisterEvent("UNIT_AURA")
@@ -267,6 +272,10 @@ function RayUIWatcher:NewWatcher(data)
 		else
 			self:Update()
 		end
+		
+		if db.lock ~= true then
+			self:TestMode(true)
+		end
 	end
 	
 	module.parent = CreateFrame("Frame", data.name, UIParent)
@@ -293,8 +302,14 @@ function RayUIWatcher:NewWatcher(data)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(data.name)
-		GameTooltip:AddLine("拖拽左键移动", 1, 1, 1)
+		GameTooltip:AddLine("拖拽左键移动，右键设置", 1, 1, 1)
 		GameTooltip:Show()
+	end)
+	
+	mover:SetScript("OnMouseUp", function(self, button)
+		if button == "RightButton" then
+			page:Open()
+		end
 	end)
 
 	mover:SetScript("OnUpdate", nil)
