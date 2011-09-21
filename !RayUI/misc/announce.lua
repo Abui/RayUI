@@ -3,7 +3,7 @@ local R, C, DB = unpack(select(2, ...))
 local announceinterrupt = "PARTY"
 local announce = CreateFrame("Frame")
 announce:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-announce:SetScript("OnEvent", function(self, _, _, event, _, _, sourceName, _, _, destName, _, _, _, _, spellID, spellName)
+announce:SetScript("OnEvent", function(self, _, _, event, _, _, sourceName, _, _, _, destName, _, _, _, _, _, spellID, spellName)
 	if not (event == "SPELL_INTERRUPT" and (sourceName == UnitName("player") or sourceName == UnitName("pet"))) then return end
 	
 	

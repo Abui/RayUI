@@ -3,7 +3,7 @@ local _, ns = ...
 
 local mediapath = "Interface\\AddOns\\FreebTip\\media\\"
 local cfg = {
-    font = "fonts\\ZYKai_T.TTF",
+    font = "fonts\\bLEI00D.TTF",
     fontsize = 14,
     outline = "NONE",
     -- tex = mediapath.."texture",

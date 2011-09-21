@@ -3,24 +3,34 @@ local cfg = ns.cfg
 
 SetCVar("consolidateBuffs",0) -- disabling consolidated buffs (temp.)
 SetCVar("buffDurations",1) -- enabling buff durations
-BUFFS_PER_ROW = 16
+BUFFS_PER_ROW = 10
 DEBUFF_MAX_DISPLAY = 16
-local warningtime = 6
 
 local backdrop_tab = { 
     bgFile = cfg.backdrop_texture, 
     edgeFile = cfg.backdrop_edge_texture,
     tile = false, tileSize = 0, edgeSize = 5, 
-    insets = {left = 4, right = 4, top = 4, bottom = 4,},}
+    insets = {left = 5, right = 5, top = 5, bottom = 5,},}
 local overlay
 
 local make_backdrop = function(f)
 	f:SetFrameLevel(20)
 	f:SetPoint("TOPLEFT",-2.5,2.5)
-	f:SetPoint("BOTTOMRIGHT",2.5,-2.5)
+	f:SetPoint("BOTTOMRIGHT",2.5,-2.5)	
 	f:SetBackdrop(backdrop_tab);
 	f:SetBackdropColor(0,0,0,0)
 	f:SetBackdropBorderColor(0,0,0,1)
+end
+
+local GetFormattedTime = function(s)
+	if s >= 86400 then
+		return format('%dd', floor(s/86400 + 0.5))
+	elseif s >= 3600 then
+		return format('%dh', floor(s/3600 + 0.5))
+	elseif s >= 60 then
+		return format('%dm', floor(s/60 + 0.5))
+	end
+	return format('%ds', floor(s + 0.5))
 end
 
 ConsolidatedBuffs:ClearAllPoints()
@@ -164,6 +174,21 @@ local function OverrideDebuffAnchors(buttonName, i)
 	if debuffSlot then debuffSlot:SetVertexColor(color.r * 0.6, color.g * 0.6, color.b * 0.6, 1) end
 end
 
+local UpdateDuration = function(auraButton, timeLeft)
+	local duration = auraButton.duration
+	if SHOW_BUFF_DURATIONS == "1" and timeLeft then
+		duration:SetFormattedText(GetFormattedTime(timeLeft))
+		if timeLeft < BUFF_DURATION_WARNING_TIME then
+			duration:SetVertexColor(1, 0, 0)
+		else
+			duration:SetVertexColor(1, 1, 1)
+		end
+		duration:Show()
+	else
+		duration:Hide()
+	end
+end
+
 -- fixing the consolidated buff container sizes because the default formula is just SHIT!
 local z = 0.79 -- 37 : 28 // 30 : 24 -- dasdas;djal;fkjl;jkfsfoi !!!! meaningfull comments we all love them!!11
 local function OverrideConsolidatedBuffsAnchors()
@@ -171,15 +196,7 @@ local function OverrideConsolidatedBuffsAnchors()
     ConsolidatedBuffsTooltip:SetHeight(floor((BuffFrame.numConsolidated + 3) / 4 ) * cfg.iconsize * z + CONSOLIDATED_BUFF_ROW_HEIGHT * z);
 end
 
-function UpdateFlash(self, elapsed)
-	local index = self:GetID();
-	if ( self.timeLeft < warningtime ) then
-		self:SetAlpha(BuffFrame.BuffAlphaValue);
-	else
-		self:SetAlpha(1.0);
-	end
-end
 hooksecurefunc("BuffFrame_UpdateAllBuffAnchors", OverrideBuffAnchors)
 hooksecurefunc("DebuffButton_UpdateAnchors", OverrideDebuffAnchors)
 hooksecurefunc("ConsolidatedBuffs_UpdateAllAnchors", OverrideConsolidatedBuffsAnchors)
-hooksecurefunc("AuraButton_OnUpdate", UpdateFlash)
+hooksecurefunc("AuraButton_UpdateDuration", UpdateDuration)

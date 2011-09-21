@@ -1,6 +1,6 @@
 local R, C = unpack(RayUI)
 -- Config start
-local anchor = {"RIGHT", "Minimap", "LEFT", -10, 0}
+local anchor = {"BOTTOM", "Minimap", "BOTTOM",0, -145}
 local x, y = 12, -12
 local barheight = 16.5
 local spacing = 1
@@ -17,9 +17,9 @@ local font_style = "THINKOUTLINE"
 local font_size = 12
 local hidetitle = true
 local classcolorbar = true
-local onlyboss = true
+local onlyboss = false
 local classcolorname = false
-local mergeHealAbsorbs = true
+local mergeHealAbsorbs = false
 -- Config end
 
 if IsAddOnLoaded("alInterface") then
@@ -218,8 +218,8 @@ end
 
 local CreateBG = CreateBG or function(parent)
 	local bg = CreateFrame("Frame", nil, parent)
-	bg:Point("TOPLEFT", -3, 2)
-	bg:Point("BOTTOMRIGHT", 3, -2)
+	bg:Point("TOPLEFT", -2, 2)
+	bg:Point("BOTTOMRIGHT", 2, -2)
 	bg:SetFrameLevel(parent:GetFrameLevel() - 1)
 	-- bg:SetBackdrop(backdrop)
 	-- bg:SetBackdropColor(unpack(backdrop_color))
@@ -576,18 +576,13 @@ end
 local CheckRoster = function()
 	wipe(units)
 	if GetNumRaidMembers() > 0 then
-		MainFrame:Show()
 		for i = 1, GetNumRaidMembers(), 1 do
 			CheckUnit("raid"..i)
 		end
 	elseif GetNumPartyMembers() > 0 then
-		MainFrame:Show()
 		for i = 1, GetNumPartyMembers(), 1 do
 			CheckUnit("party"..i)
 		end
-	end
-	if GetNumPartyMembers() == 0 and GetNumRaidMembers() == 0 then
-		MainFrame:Hide()
 	end
 	CheckUnit("player")
 end
@@ -791,18 +786,14 @@ local OnEvent = function(self, event, ...)
 			end)
 			MainFrame:SetScript("OnMouseWheel", OnMouseWheel)
 			MainFrame:Show()
-			MainFrame.title = CreateFS(MainFrame)
-			MainFrame.title:SetPoint("BOTTOM", MainFrame, "TOP", 0, 1)
-			MainFrame.title:SetText(sMode)
 			UIDropDownMenu_Initialize(menuFrame, CreateMenu, "MENU")
 			CheckRoster()
 		end
 	elseif event == "VARIABLES_LOADED" then
-		if hidetitle then
-
-
-
-			MainFrame.title:Hide()
+		if not hidetitle then
+			MainFrame.title = CreateFS(MainFrame)
+			MainFrame.title:SetPoint("BOTTOM", MainFrame, "TOP", 0, 1)
+			MainFrame.title:SetText(sMode)
 		end
 		MainFrame:SetSize(width, height)
 	elseif event == "RAID_ROSTER_UPDATE" or event == "PARTY_MEMBERS_CHANGED" or event == "PLAYER_ENTERING_WORLD" then
