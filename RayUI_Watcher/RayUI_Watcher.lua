@@ -38,15 +38,13 @@ end
 
 function RayUIWatcher:OnInitialize()
 	self:RegisterChatCommand("print", "PrintCmd")
-	local watchers = ns.watchers[myclass]
-	for _, t in ipairs(watchers) do
+	for _, t in ipairs(ns.watchers[myclass]) do
 		self:NewWatcher(t)
 	end
-	watchers = ns.watchers["ALL"]
-	for _, t in ipairs(watchers) do
+	for _, t in ipairs(ns.watchers["ALL"]) do
 		self:NewWatcher(t)
 	end
-	
+	ns.watchers = nil
 	local lockgroup = page:CreateMultiSelectionGroup("锁定/解锁模块")
 	page:AnchorToTopLeft(lockgroup)
 	lockgroup:AddButton("锁定", "lock")

@@ -323,6 +323,21 @@ ns.watchers ={
 			{ spellID = 702, unitId = "target", caster = "all", filter = "DEBUFF" },
 			},
 		},
+		{
+			name = "CD/HEAL",
+			direction = "UP",
+			iconSide = "RIGHT",
+			mode = "BAR",
+			size = 24,
+			barWidth = 200,
+			anchor = { "RIGHT", UIParent, "CENTER", -198, 100 },
+			list={
+			-- Swiftmend / Rasche Heilung
+			{ spellID = 18499, filter = "CD" },
+			-- Wild Growth / Wildwuchs
+			{ itemID = 56285, filter = "CD" },
+			},
+		},
 	},
 	["SHAMAN"] = {
 		{
