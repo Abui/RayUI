@@ -1,3 +1,19 @@
+
+-----------------------------------------------------------------------------------------------------
+-- name = "T_DEBUFF_ICON",
+-- anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+-- direction = "UP",
+-- iconSide = "LEFT",
+-- mode = "BAR", 
+-- size = 24,
+-- barWidth = 200,
+-- list ={						
+--				 {spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
+--				 { spellID = 18499, filter = "CD" },
+--				 { itemID = 56285, filter = "CD" },
+--			 },
+---------------------------------------------------------------------------------------------------
+
 local _, ns = ...
 
 ns.font = "Fonts\\ZYKai_T.ttf"
@@ -111,6 +127,21 @@ ns.watchers ={
 			-- Cyclone / Wirbelsturm
 			{ spellID = 33786, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			}
+		},
+		{
+			name = "CD/HEAL",
+			direction = "UP",
+			iconSide = "RIGHT",
+			mode = "BAR",
+			size = 24,
+			barWidth = 200,
+			anchor = { "RIGHT", UIParent, "CENTER", -198, 100 },
+			list={
+			-- Swiftmend / Rasche Heilung
+			{ spellID = 18562, filter = "CD" },
+			-- Wild Growth / Wildwuchs
+			{ spellID = 48438, filter = "CD" },
+			},
 		},
 	},
 	["HUNTER"] = {
@@ -560,6 +591,7 @@ ns.watchers ={
 			name = "T_DEBUFF_ICON",
 			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
 			direction = "RIGHT",
+			mode = "ICON",
 			size = 47,
 			list ={						
 						{spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
@@ -607,9 +639,6 @@ ns.watchers ={
 			direction = "LEFT",
 			size = 47,
 			list ={
-						{spellID = 28176, unitId = "player", caster = "player", filter = "BUFF"},
-						
-						{ spellID = 70840, unitId = "player", caster = "player", filter = "BUFF" },
 						-- Improved Soul Fire / Verbessertes Seelenfeuer
 						{ spellID = 85383, unitId = "player", caster = "player", filter = "BUFF" },
 						-- Molten Core / Geschmolzener Kern

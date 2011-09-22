@@ -2,8 +2,8 @@ local RayUIWatcher = LibStub("AceAddon-3.0"):NewAddon("RayUI_Watcher", "AceConso
 
 local _, ns = ...
 local _, myclass = UnitClass("player")
-local page
-
+local page, db
+local colors = RAID_CLASS_COLORS
 local modules = {}
 
 local function CreateShadow(f)
@@ -116,8 +116,7 @@ function RayUIWatcher:NewWatcher(data)
 		end
 	end
 	
-	function module:CreateButton()
-		-- local button=CreateFrame("Button", nil, self.parent, "SecureActionButtonTemplate")
+	function module:CreateButton(mode)
 		local button=CreateFrame("Frame", nil, self.parent)
 		CreateShadow(button)
 		button:SetWidth(self.size)
@@ -128,9 +127,53 @@ function RayUIWatcher:NewWatcher(data)
 		button.count = button:CreateFontString(nil, "OVERLAY")
 		button.count:SetFont(ns.font, ns.fontsize, ns.fontflag)
 		button.count:SetPoint("BOTTOMRIGHT", button , "BOTTOMRIGHT", 0, 0)
-		button.cooldown = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
-		button.cooldown:SetAllPoints(button.icon)
-		button.cooldown:SetReverse()
+		button:SetScript("OnEnter", function(self)
+				GameTooltip:SetOwner(self, "ANCHOR_TOP")
+				if self.filter == "BUFF" then
+					GameTooltip:SetUnitAura(self.unitId, self.index, "HELPFUL")
+				elseif self.filter == "DEBUFF" then
+					GameTooltip:SetUnitAura(self.unitId, self.index, "HARMFUL")
+				elseif self.filter == "ITEM" then
+					GameTooltip:SetHyperlink(select(2,GetItemInfo(self.spellID)))
+				else
+					GameTooltip:SetSpellByID(self.spellID)
+				end
+				GameTooltip:Show()
+			end)
+		button:SetScript("OnLeave", function(self) 
+				GameTooltip:Hide() 
+			end)
+		if mode=="BAR" then
+			button.statusbar = CreateFrame("StatusBar", nil, button)
+			button.statusbar:SetFrameStrata("BACKGROUND")
+			button.statusbar.bg = CreateFrame("StatusBar", nil, button.statusbar)
+			button.statusbar.bg:SetPoint("TOPLEFT", -2, 2)
+			button.statusbar.bg:SetPoint("BOTTOMRIGHT", 2, -2)
+			CreateShadow(button.statusbar.bg)
+			button.statusbar:SetWidth(self.barWidth - 6)
+			button.statusbar:SetHeight(self.size - 4)
+			button.statusbar:SetStatusBarTexture([[Interface\AddOns\RayUI_Watcher\media\statusbar.tga]])
+			button.statusbar:SetStatusBarColor(colors[myclass].r, colors[myclass].g, colors[myclass].b, 1)
+			if ( self.iconSide == "LEFT" ) then
+				button.statusbar:SetPoint("LEFT", button, "RIGHT", 5, 0)
+			elseif ( self.iconSide == "RIGHT" ) then
+				button.statusbar:SetPoint("RIGHT", button, "LEFT", -5, 0)
+			end
+			button.statusbar:SetMinMaxValues(0, 1)
+			button.statusbar:SetValue(1)
+			button.time = button:CreateFontString(nil, "OVERLAY")
+			button.time:SetFont(ns.font, ns.fontsize, ns.fontflag)
+			button.time:SetPoint("RIGHT", button.statusbar, "RIGHT", -5, 0)
+			button.name = button:CreateFontString(nil, "OVERLAY")
+			button.name:SetFont(ns.font, ns.fontsize, ns.fontflag)
+			button.name:SetPoint("LEFT", button.statusbar, "LEFT", 5, 0)
+			button.mode = "BAR"
+		else			
+			button.cooldown = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
+			button.cooldown:SetAllPoints(button.icon)
+			button.cooldown:SetReverse()
+			button.mode = "ICON"	
+		end
 		return button
 	end
 	
@@ -138,35 +181,80 @@ function RayUIWatcher:NewWatcher(data)
 		button.icon:SetTexture(icon)
 		button.icon:SetTexCoord(.1, .9, .1, .9)
 		button.count:SetText(count==0 and "" or count)
-		CooldownFrame_SetTimer(button.cooldown, expires - duration, duration, 1)
+		if button.cooldown then
+			CooldownFrame_SetTimer(button.cooldown, filter == "CD" and expires or (expires - duration), duration, 1)
+		end
 		button.index = index
+		button.filter = filter
+		button.unitId = unitId
+		button.spellID = spellID
+		if filter == "ITEM" then
+			button.spn = GetItemInfo(spellID)
+		else
+			button.spn = GetSpellInfo(spellID)
+		end
 		button:Show()
-		button:SetScript("OnEnter", function(self)
-				GameTooltip:SetOwner(self, "ANCHOR_TOP")
-				if filter == "BUFF" then
-					GameTooltip:SetUnitAura(unitId, self.index, "HELPFUL")
-				elseif filter == "DEBUFF" then
-					GameTooltip:SetUnitAura(unitId, self.index, "HARMFUL")
+	end
+	
+	local function CDUpdate(self, elapsed)
+		local start, duration
+		if self.filter == "ITEM" then
+			start, duration = GetItemCooldown(self.spellID)
+		else
+			start, duration = GetSpellCooldown(self.spellID)
+		end
+		if self.mode == "BAR" then
+			self.statusbar:SetMinMaxValues(0, duration)
+			local time = start + duration - GetTime()
+			self.statusbar:SetValue(time)
+			if time <= 60 then
+				self.time:SetFormattedText("%.1f", time)
+			else
+				self.time:SetFormattedText("%d:%.2d", time/60, time%60)
+			end
+			self.name:SetText(self.spn)
+		end
+		if start == 0 then
+			self:SetScript("OnUpdate", nil)
+			module:Update()
+		end
+	end
+	
+	local function BarUpdate(self, elapsed)
+		if self.spellID then
+			if self.filter ~= "CD" then				
+				local _, _, _, _, _, duration, expires = UnitAura(self.unitId, self.index, self.filter == "BUFF" and "HELPFUL" or "HARMFUL")
+				-- module:Print(duration, expires)
+				self.statusbar:SetMinMaxValues(0, duration)
+				local time = expires - GetTime()
+				self.statusbar:SetValue(time)
+				self.name:SetText(self.spn)
+				if time <= 60 then
+					self.time:SetFormattedText("%.1f", time)
 				else
-					GameTooltip:SetSpellByID(spellID)
+					self.time:SetFormattedText("%d:%.2d", time/60, time%60)
 				end
-				GameTooltip:Show()
-			end)
-		button:SetScript("OnLeave", function(self) 
-				GameTooltip:Hide() 
-			end)
+			end
+		end
 	end
 	
 	function module:CheckAura(unitID, filter, num)
 		local index = 1
 		local list = self[filter:lower().."list"]
 		if next(list) then
-			while UnitAura(unitID,index, filter == "BUFF" and "HELPFUL" or "HARMFUL") do
-				local name, rank, icon, count, dispelType, duration, expires, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff = UnitAura(unitID,index, filter == "BUFF" and "HELPFUL" or "HARMFUL")
-				if list[spellID] then
-					if list[spellID].unitId == unitID and (list[spellID].caster == caster or list[spellID].caster == "all")then
+			if filter == "CD" or filter == "ITEM" then
+				for i,v in pairs(list) do
+					local start, duration, icon
+					if unitID == "item" then
+						start, duration = GetItemCooldown(i)
+						_, _, _, _, _, _, _, _, _, icon = GetItemInfo(i)
+					else
+						start, duration = GetSpellCooldown(i)
+						_, _, icon = GetSpellInfo(i)
+					end
+					if start~= 0 and duration>2 then						
 						if not self.button[num] then
-							self.button[num] = self:CreateButton()					
+							self.button[num] = self:CreateButton(self.mode)					
 							if num == 1 then 
 								self.button[num]:SetPoint("CENTER", self.parent, "CENTER", 0, 0)
 							elseif self.direction == "LEFT" then
@@ -179,26 +267,59 @@ function RayUIWatcher:NewWatcher(data)
 								self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 5, 0)
 							end
 						end	
-						self:UpdateButton(self.button[num], index, icon, count, duration, expires, spellID, unitID, filter)
+						self:UpdateButton(self.button[num], nil, icon, 0, duration, start, i, unitID, filter)
+						self.button[num]:SetScript("OnUpdate", CDUpdate)
 						num = num + 1
 					end
 				end
-				index = index + 1
+			else
+				while UnitAura(unitID,index, filter == "BUFF" and "HELPFUL" or "HARMFUL") do
+					local _, _, icon, count, _, duration, expires, caster, _, _, spellID = UnitAura(unitID,index, filter == "BUFF" and "HELPFUL" or "HARMFUL")
+					if list[spellID] then
+						if list[spellID].unitId == unitID and (list[spellID].caster == caster or list[spellID].caster == "all")then
+							if not self.button[num] then
+								self.button[num] = self:CreateButton(self.mode)					
+								if num == 1 then 
+									self.button[num]:SetPoint("CENTER", self.parent, "CENTER", 0, 0)
+								elseif self.direction == "LEFT" then
+									self.button[num]:SetPoint("RIGHT", self.button[num-1], "LEFT", -5, 0)
+								elseif self.direction == "UP" then
+									self.button[num]:SetPoint("BOTTOM", self.button[num-1], "TOP", 0, 5)
+								elseif self.direction == "DOWN" then
+									self.button[num]:SetPoint("TOP", self.button[num-1], "BOTTOM", 0, -5)
+								else
+									self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 5, 0)
+								end
+							end	
+							self:UpdateButton(self.button[num], index, icon, count, duration, expires, spellID, unitID, filter)
+							if self.mode == "BAR" then
+								self.button[num]:SetScript("OnUpdate", BarUpdate)
+							else
+								self.button[num]:SetScript("OnUpdate", nil)
+							end
+							num = num + 1
+						end
+					end
+					index = index + 1
+				end
 			end
 		end
 		return num
 	end
 
-	function module:Update()		
+	function module:Update()
 		local num = 1
 		for i = 1, #self.button do
 			self.button[i]:Hide()
 		end
+		
+		num = self:CheckAura("player","CD",num)
+		num = self:CheckAura("item","ITEM",num)
 		num = self:CheckAura("player","BUFF",num)
 		num = self:CheckAura("player","DEBUFF",num)
 		num = self:CheckAura("target","BUFF",num)
-		num = self:CheckAura("target","DEBUFF",num)	
-		num = self:CheckAura("focus","DEBUFF",num)	
+		num = self:CheckAura("target","DEBUFF",num)
+		num = self:CheckAura("focus","DEBUFF",num)
 	end
 	
 	function module:TestMode(arg)
@@ -208,49 +329,39 @@ function RayUIWatcher:NewWatcher(data)
 			local num = 1
 			module:UnregisterEvent("UNIT_AURA")
 			module:UnregisterEvent("PLAYER_TARGET_CHANGED")
-			for i,v in next,self.bufflist do
-				if not self.button[num] then
-					self.button[num] = self:CreateButton()					
-					if num == 1 then 
-						self.button[num]:SetPoint("CENTER", self.parent, "CENTER", 0, 0)
-					elseif self.direction == "LEFT" then
-						self.button[num]:SetPoint("RIGHT", self.button[num-1], "LEFT", -5, 0)
-					elseif self.direction == "UP" then
-						self.button[num]:SetPoint("BOTTOM", self.button[num-1], "TOP", 0, 5)
-					elseif self.direction == "DOWN" then
-						self.button[num]:SetPoint("TOP", self.button[num-1], "BOTTOM", 0, -5)
-					else
-						self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 5, 0)
+			module:UnregisterEvent("SPELL_UPDATE_COOLDOWN")
+			for _, subt in pairs({"buff", "debuff", "cd", "item"}) do
+				for i,v in next,self[subt.."list"] do
+					if not self.button[num] then
+						self.button[num] = self:CreateButton(self.mode)					
+						if num == 1 then 
+							self.button[num]:SetPoint("CENTER", self.parent, "CENTER", 0, 0)
+						elseif self.direction == "LEFT" then
+							self.button[num]:SetPoint("RIGHT", self.button[num-1], "LEFT", -5, 0)
+						elseif self.direction == "UP" then
+							self.button[num]:SetPoint("BOTTOM", self.button[num-1], "TOP", 0, 5)
+						elseif self.direction == "DOWN" then
+							self.button[num]:SetPoint("TOP", self.button[num-1], "BOTTOM", 0, -5)
+						else
+							self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 5, 0)
+						end
 					end
-				end
-				local _, _, icon = GetSpellInfo(i)
-				self:UpdateButton(self.button[num], 1, icon, 9, 0, 0, i, "player", "BUFF")
-				num = num + 1
-			end
-			for i,v in next,self.debufflist do
-				if not self.button[num] then
-					self.button[num] = self:CreateButton()					
-					if num == 1 then 
-						self.button[num]:SetPoint("CENTER", self.parent, "CENTER", 0, 0)
-					elseif self.direction == "LEFT" then
-						self.button[num]:SetPoint("RIGHT", self.button[num-1], "LEFT", -5, 0)
-					elseif self.direction == "UP" then
-						self.button[num]:SetPoint("BOTTOM", self.button[num-1], "TOP", 0, 5)
-					elseif self.direction == "DOWN" then
-						self.button[num]:SetPoint("TOP", self.button[num-1], "BOTTOM", 0, -5)
+					local icon
+					if subt == "item" then
+						_, _, _, _, _, _, _, _, _, icon = GetItemInfo(i)
 					else
-						self.button[num]:SetPoint("LEFT", self.button[num-1], "RIGHT", 5, 0)
+						_, _, icon = GetSpellInfo(i)
 					end
+					self:UpdateButton(self.button[num], 1, icon, 9, 0, 0, i, "player", subt:upper())
+					num = num + 1
 				end
-				local _, _, icon = GetSpellInfo(i)
-				self:UpdateButton(self.button[num], 1, icon, 9, 0, 0, i, "player", "DEBUFF")
-				num = num + 1
 			end
 			self.moverFrame:Show()
 		else
 			self.testmode = false
 			module:RegisterEvent("UNIT_AURA")
 			module:RegisterEvent("PLAYER_TARGET_CHANGED")
+			module:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 			for _, v in pairs(modules) do
 				v:Update()
 			end
@@ -263,6 +374,10 @@ function RayUIWatcher:NewWatcher(data)
 	end
 	
 	function module:PLAYER_TARGET_CHANGED()
+		self:Update()
+	end
+	
+	function module:SPELL_UPDATE_COOLDOWN()
 		self:Update()
 	end
 	
@@ -319,9 +434,13 @@ function RayUIWatcher:NewWatcher(data)
 	module.list = data.list
 	module.direction = data.direction
 	module.size = data.size
+	module.barWidth = data.barWidth
+	module.mode = data.mode
+	module.iconSide = data.iconSide
 	module.bufflist = {}
 	module.debufflist = {}	
 	module.cdlist = {}
+	module.itemlist = {}
 	module.button = {}	
 	
 	module.testmode = false
@@ -332,13 +451,19 @@ function RayUIWatcher:NewWatcher(data)
 		elseif t.filter == "DEBUFF" then
 			module.debufflist[t.spellID] = {unitId = t.unitId, caster = t.caster,}
 		elseif t.filter == "CD" then
-			module.cdlist[t.spellID] = true
+			if t.spellID then
+				module.cdlist[t.spellID] = true
+			end
+			if t.itemID then
+				module.itemlist[t.itemID] = true
+			end
 		end
 	end
 	
 	module:RegisterEvent("UNIT_AURA")
 	module:RegisterEvent("PLAYER_TARGET_CHANGED")
 	module:RegisterEvent("PLAYER_ENTERING_WORLD")
+	module:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 	
 	tinsert(modules, module)
 end
