@@ -1,17 +1,15 @@
 
 -----------------------------------------------------------------------------------------------------
--- name = "T_DEBUFF_ICON",
--- anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+-- name = "目标debuff",
+-- setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 -- direction = "UP",
 -- iconSide = "LEFT",
 -- mode = "BAR", 
 -- size = 24,
--- barWidth = 200,
--- list ={						
---				 {spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
---				 { spellID = 18499, filter = "CD" },
---				 { itemID = 56285, filter = "CD" },
---			 },
+-- barWidth = 200,				
+--	{spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
+--	{ spellID = 18499, filter = "CD" },
+--	{ itemID = 56285, filter = "CD" },
 ---------------------------------------------------------------------------------------------------
 
 local _, ns = ...
@@ -23,11 +21,11 @@ ns.fontflag = "OUTLINE"
 ns.watchers ={
 	["DRUID"] = {
 		{
-			name = "P_BUFF_ICON",
+			name = "玩家buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
 			size = 32,
-			list = {
+
 			-- Lifebloom / Blühendes Leben
 			{ spellID = 33763, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Rejuvenation / Verjüngung
@@ -36,14 +34,13 @@ ns.watchers ={
 			{ spellID = 8936, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Wild Growth / Wildwuchs
 			{ spellID = 48438, unitId = "player", caster = "player", filter = "BUFF" },
-			},
 		},
 		{
-			name = "T_BUFF_ICON",
+			name = "目标buff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
 			size = 32,
-			list = {
+
 			-- Lifebloom / Blühendes Leben
 			{ spellID = 33763, unitId = "target", caster = "player", filter = "BUFF" },
 			-- Rejuvenation / Verjüngung
@@ -52,14 +49,14 @@ ns.watchers ={
 			{ spellID = 8936, unitId = "target", caster = "player", filter = "BUFF" },
 			-- Wild Growth / Wildwuchs
 			{ spellID = 48438, unitId = "target", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Eclipse (Lunar) / Mondfinsternis
 			{ spellID = 48518, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Eclipse (Solar) / Sonnenfinsternis
@@ -78,14 +75,14 @@ ns.watchers ={
 			{ spellID = 29166, unitId = "player", caster = "all", filter = "BUFF" },
 			-- Barkskin / Baumrinde
 			{ spellID = 22812, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Hibernate / Winterschlaf
 			{ spellID = 2637, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Entangling Roots / Wucherwurzeln
@@ -112,45 +109,46 @@ ns.watchers ={
 			{ spellID = 48506, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Faerie Fire / Feenfeuer
 			{ spellID = 770, unitId = "target", caster = "all", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Hibernate / Winterschlaf
 			{ spellID = 2637, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			-- Entangling Roots / Wucherwurzeln
 			{ spellID = 339, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			-- Cyclone / Wirbelsturm
 			{ spellID = 33786, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
 		},
 		{
-			name = "CD/HEAL",
+			name = "CD",
 			direction = "UP",
 			iconSide = "RIGHT",
 			mode = "BAR",
-			size = 24,
+			size = 32,
 			barWidth = 200,
-			anchor = { "RIGHT", UIParent, "CENTER", -198, 100 },
-			list={
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, 100 },
+
 			-- Swiftmend / Rasche Heilung
 			{ spellID = 18562, filter = "CD" },
 			-- Wild Growth / Wildwuchs
 			{ spellID = 48438, filter = "CD" },
-			},
 		},
 	},
 	["HUNTER"] = {
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Lock and Load / Sichern und Laden
 			{ spellID = 56342, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Quick Shots / Schnelle Schüsse
@@ -167,14 +165,14 @@ ns.watchers ={
 			{ spellID = 6991, unitId = "pet", caster = "player", filter = "BUFF" },
 			-- Call of the Wild / Ruf der Wildnis
 			{ spellID = 53434, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Wyvern Sting / Wyverngift
 			{ spellID = 19386, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Silencing Shot / Unterdrückender Schuss
@@ -189,28 +187,30 @@ ns.watchers ={
 			{ spellID = 53301, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Hunter's Mark/ Mal des Jägers
 			{ spellID = 1130, unitId = "target", caster = "all", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Wyvern Sting / Wyverngift
-			{ spellID = 19386, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
+			{ spellID = 19386, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			-- Silencing Shot / Unterdrückender Schuss
-			{ spellID = 34490, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
+			{ spellID = 34490, unitId = "focus", caster = "all", filter = "DEBUFF" },
 		},
 	},
 	["MAGE"] = {
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Frostbite / Frostbite
 			--{ spellID = 11071, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Winter's Chill / Winterkälte
@@ -227,14 +227,14 @@ ns.watchers ={
 			{ spellID = 12536, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Impact / Einschlag
 			{ spellID = 12358, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Polymorph / Verwandlung
 			{ spellID = 118, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Arcane Blast / Arkanschlag
@@ -251,26 +251,28 @@ ns.watchers ={
 			{ spellID = 44457, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Pyroblast! / Pyroschlag!
 			{ spellID = 92315, unitId = "player", caster = "player", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Polymorph / Verwandlung
-			{ spellID = 118, barWidth = 191, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
+			{ spellID = 118, unitId = "focus", caster = "all", filter = "DEBUFF" },
 		},
 	},
 	["WARRIOR"] = {
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Sudden Death / Plötzlicher Tod
 			{ spellID = 52437, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Bloodsurge / Schäumendes Blut
@@ -289,14 +291,14 @@ ns.watchers ={
 			{ spellID = 12975, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Shield Wall / Schildwall
 			{ spellID = 871, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Charge Stun / Sturmangriffsbetäubung
 			{ spellID = 7922, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Shockwave / Schockwelle
@@ -321,31 +323,16 @@ ns.watchers ={
 			{ spellID = 99, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Curse of Weakness / Fluch der Schwäche (Warlock)
 			{ spellID = 702, unitId = "target", caster = "all", filter = "DEBUFF" },
-			},
-		},
-		{
-			name = "CD/HEAL",
-			direction = "UP",
-			iconSide = "RIGHT",
-			mode = "BAR",
-			size = 24,
-			barWidth = 200,
-			anchor = { "RIGHT", UIParent, "CENTER", -198, 100 },
-			list={
-			-- Swiftmend / Rasche Heilung
-			{ spellID = 18499, filter = "CD" },
-			-- Wild Growth / Wildwuchs
-			{ itemID = 56285, filter = "CD" },
-			},
+
 		},
 	},
 	["SHAMAN"] = {
 		{
-			name = "P_BUFF_ICON",
+			name = "玩家buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
 			size = 32,
-			list = {
+			
 			-- Earth Shield / Erdschild
 			{ spellID = 974, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Riptide / Springflut
@@ -354,26 +341,26 @@ ns.watchers ={
 			{ spellID = 324, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Water Shield / Wasserschild
 			{ spellID = 52127, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_BUFF_ICON",
+			name = "目标buff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
 			size = 32,
-			list = {
+			
 			-- Earth Shield / Erdschild
 			{ spellID = 974, unitId = "target", caster = "player", filter = "BUFF" },
 			-- Riptide / Springflut
 			{ spellID = 61295, unitId = "target", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Maelstorm Weapon / Waffe des Mahlstroms
 			{ spellID = 53817, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Shamanistic Rage / Schamanistische Wut
@@ -384,14 +371,14 @@ ns.watchers ={
 			{ spellID = 51562, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Ancestral Fortitude / Seelenstärke der Ahnen
 			{ spellID = 16177, unitId = "target", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Hex / Verhexen
 			{ spellID = 51514, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Bind Elemental / Elementar binden
@@ -404,48 +391,51 @@ ns.watchers ={
 			{ spellID = 8056, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Flame Shock / Flammenschock
 			{ spellID = 8050, unitId = "target", caster = "player", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Hex / Verhexen
-			{ spellID = 51514, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
+			{ spellID = 51514, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			-- Bind Elemental / Elementar binden
-			{ spellID = 76780, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
+			{ spellID = 76780, unitId = "focus", caster = "all", filter = "DEBUFF" },
+
 		},
 	},
 	["PALADIN"] = {
 		{
-			name = "P_BUFF_ICON",
+			name = "玩家buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
 			size = 32,
-			list = {
+			
 			-- Beacon of Light / Flamme des Glaubens
 			{ spellID = 53563, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_BUFF_ICON",
+			name = "目标buff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
 			size = 32,
-			list = {
+			
 			-- Beacon of Light / Flamme des Glaubens
 			{ spellID = 53563, unitId = "target", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Judgements of the Pure / Richturteile des Reinen
 			{ spellID = 53671, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Judgements of the Just / Richturteil des Gerechten
@@ -460,38 +450,41 @@ ns.watchers ={
 			{ spellID = 60062, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Divine Illumination / Göttliche Gunst
 			{ spellID = 31842, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Hammer of Justice / Hammer der Gerechtigkeit
 			{ spellID = 853, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Judgement / Richturteil
 			{ spellID = 20271, unitId = "target", caster = "player", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Hammer of Justice / Hammer der Gerechtigkeit
-			{ spellID = 853, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
+			{ spellID = 853, unitId = "focus", caster = "all", filter = "DEBUFF" },
+
 		},
 	},
 	["PRIEST"] = {
 		{
-			name = "P_BUFF_ICON",
+			name = "玩家buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
 			size = 32,
-			list = {
+			
 			-- Prayer of Mending / Gebet der Besserung
 			{ spellID = 41635, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Guardian Spirit / Schutzgeist
@@ -516,14 +509,14 @@ ns.watchers ={
 			{ spellID = 87153, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Empowered Shadow / Machterfüllte Schatten
 			{ spellID = 95799, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_BUFF_ICON",
+			name = "目标buff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
 			size = 32,
-			list = {
+			
 			-- Prayer of Mending / Gebet der Besserung
 			{ spellID = 41635, unitId = "target", caster = "player", filter = "BUFF" },
 			-- Guardian Spirit / Schutzgeist
@@ -542,14 +535,14 @@ ns.watchers ={
 			{ spellID = 15357, unitId = "target", caster = "player", filter = "BUFF" },
 			-- Grace / Barmherzigkeit
 			{ spellID = 77613, unitId = "target", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Surge of Light / Woge des Lichts
 			{ spellID = 88688, unitId = "player", caster = "all", filter = "BUFF" },
 			-- Serendipity / Glücksfall
@@ -568,14 +561,14 @@ ns.watchers ={
 			{ spellID = 81206, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Chakra: Chastise / Chakra: Züchtigung
 			{ spellID = 81209, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Shackle Undead / Untote fesseln
 			{ spellID = 9484, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Psychic Scream / Psychischer Schrei
@@ -586,100 +579,100 @@ ns.watchers ={
 			{ spellID = 2944, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Vampiric Touch / Vampirberührung
 			{ spellID = 34914, unitId = "target", caster = "player", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Shackle Undead / Untote fesseln
-			{ spellID = 9484, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
+			{ spellID = 9484, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			-- Psychic Scream / Psychischer Schrei
-			{ spellID = 8122, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
+			{ spellID = 8122, unitId = "focus", caster = "all", filter = "DEBUFF" },
+
 		},
 	},
 	["WARLOCK"]={
 		{
-			name = "T_DEBUFF_ICON",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			name = "目标debuff",
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			direction = "RIGHT",
 			mode = "ICON",
 			size = 47,
-			list ={						
-						{spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
-						-- Fear / Furcht
-						{ spellID = 5782, unitId = "target", caster = "target", filter = "DEBUFF" },
-						-- Banish / Verbannen
-						{ spellID = 710, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Curse of the Elements / Fluch der Elemente
-						{ spellID = 1490, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Curse of Tongues / Fluch der Sprachen
-						{ spellID = 1714, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Curse of Exhaustion / Fluch der Erschöpfung
-						{ spellID = 18223, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Curse of Weakness / Fluch der Schwäche
-						{ spellID = 702, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Shadow Embrace / Umschlingende Schatten
-						{ spellID = 32385, filter = "BUFF" },
-						-- Corruption / Verderbnis
-						{ spellID = 172, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Immolate / Feuerbrand
-						{ spellID = 348, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Curse of Agony / Omen der Pein
-						{ spellID = 980, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Bane of Doom / Omen der Verdammnis
-						{ spellID = 603, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Unstable Affliction / Instabiles Gebrechen
-						{ spellID = 30108, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Haunt / Heimsuchung
-						{ spellID = 48181, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Seed of Corruption / Saat der Verderbnis
-						{ spellID = 27243, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Howl of Terror / Schreckensgeheul
-						{ spellID = 5484, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Death Coil / Todesmantel
-						{ spellID = 6789, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Enslave Demon / Dämonensklave
-						{ spellID = 1098, unitId = "target", caster = "player", filter = "DEBUFF" },
-						-- Demon Charge / Dämonischer Ansturm
-						{ spellID = 54785, unitId = "target", caster = "player", filter = "DEBUFF" },
-					},
+	
+			{spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
+			-- Fear / Furcht
+			{ spellID = 5782, unitId = "target", caster = "target", filter = "DEBUFF" },
+			-- Banish / Verbannen
+			{ spellID = 710, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Curse of the Elements / Fluch der Elemente
+			{ spellID = 1490, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Curse of Tongues / Fluch der Sprachen
+			{ spellID = 1714, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Curse of Exhaustion / Fluch der Erschöpfung
+			{ spellID = 18223, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Curse of Weakness / Fluch der Schwäche
+			{ spellID = 702, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Shadow Embrace / Umschlingende Schatten
+			{ spellID = 32385, filter = "BUFF" },
+			-- Corruption / Verderbnis
+			{ spellID = 172, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Immolate / Feuerbrand
+			{ spellID = 348, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Curse of Agony / Omen der Pein
+			{ spellID = 980, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Bane of Doom / Omen der Verdammnis
+			{ spellID = 603, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Unstable Affliction / Instabiles Gebrechen
+			{ spellID = 30108, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Haunt / Heimsuchung
+			{ spellID = 48181, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Seed of Corruption / Saat der Verderbnis
+			{ spellID = 27243, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Howl of Terror / Schreckensgeheul
+			{ spellID = 5484, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Death Coil / Todesmantel
+			{ spellID = 6789, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Enslave Demon / Dämonensklave
+			{ spellID = 1098, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Demon Charge / Dämonischer Ansturm
+			{ spellID = 54785, unitId = "target", caster = "player", filter = "DEBUFF" },
 		},
 		{
-			name = "P_PROC_ICON",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			name = "玩家重要buff",
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			direction = "LEFT",
 			size = 47,
-			list ={
-						-- Improved Soul Fire / Verbessertes Seelenfeuer
-						{ spellID = 85383, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Molten Core / Geschmolzener Kern
-						{ spellID = 47383, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Decimation / Dezimierung
-						{ spellID = 63165, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Backdraft / Pyrolyse
-						{ spellID = 54274, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Backlash / Heimzahlen
-						{ spellID = 34936, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Nether Protection / Netherschutz
-						{ spellID = 30299, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Nightfall / Einbruch der Nacht
-						{ spellID = 18094, unitId = "player", caster = "player", filter = "BUFF" },
-						-- Soulburn / Seelenbrand
-						{ spellID = 74434, unitId = "player", caster = "player", filter = "BUFF" },
-					},
+			-- Improved Soul Fire / Verbessertes Seelenfeuer
+			{ spellID = 85383, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Molten Core / Geschmolzener Kern
+			{ spellID = 47383, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Decimation / Dezimierung
+			{ spellID = 63165, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Backdraft / Pyrolyse
+			{ spellID = 54274, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Backlash / Heimzahlen
+			{ spellID = 34936, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Nether Protection / Netherschutz
+			{ spellID = 30299, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Nightfall / Einbruch der Nacht
+			{ spellID = 18094, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Soulburn / Seelenbrand
+			{ spellID = 74434, unitId = "player", caster = "player", filter = "BUFF" },
 		},
 	},
 	["ROGUE"] = {
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Sprint / Sprinten
 			{ spellID = 2983, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Cloak of Shadows / Mantel der Schatten
@@ -698,14 +691,14 @@ ns.watchers ={
 			{ spellID = 57934, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Turn the Tables / Den Spieß umdrehen
 			{ spellID = 51627, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Cheap Shot / Fieser Trick
 			{ spellID = 1833, unitId = "target", caster = "all", filter = "DEBUFF" },
 			-- Kidney Shot / Nierenhieb
@@ -732,28 +725,31 @@ ns.watchers ={
 			{ spellID = 3409, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Wound Poison / Wundgift
 			{ spellID = 13218, unitId = "target", caster = "player", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "F/DEBUFF_BAR",
+			name = "焦点debuff",
 			direction = "UP",
-			anchor = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
 			size = 32, 
-			list = {
+			mode = "BAR",
+			iconSide = "LEFT",
+			barWidth = 200,
+			
 			-- Blind / Blenden
-			{ spellID = 2094, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
+			{ spellID = 2094, unitId = "focus", caster = "all", filter = "DEBUFF" },
 			-- Sap / Kopfnuss
-			{ spellID = 6770, barWidth = 200, unitId = "focus", caster = "all", filter = "DEBUFF" },
-			}
+			{ spellID = 6770, unitId = "focus", caster = "all", filter = "DEBUFF" },
+
 		},
 	},
 	["DEATHKNIGHT"] = {
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
 			size = 47,
-			list = {
+			
 			-- Blood Shield / Blutschild
 			{ spellID = 77513, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Unholy Force / Unheilige Kraft
@@ -774,14 +770,14 @@ ns.watchers ={
 			{ spellID = 59052, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Bone Shield / Knochenschild
 			{ spellID = 49222, unitId = "player", caster = "player", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "T_DEBUFF_ICON",
+			name = "目标debuff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
 			size = 47,
-			list = {
+			
 			-- Strangulate / Strangulieren
 			{ spellID = 47476, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Blood Plague / Blutseuche
@@ -794,19 +790,19 @@ ns.watchers ={
 			{ spellID = 49206, unitId = "target", caster = "player", filter = "DEBUFF" },
 			-- Death and Decay / Tod und Verfall
 			{ spellID = 43265, unitId = "target", caster = "player", filter = "DEBUFF" },
-			},
+
 		},
 	},
 	["ALL"]={
 		{
-			name = "SPECIAL_P_BUFF_ICON",
+			name = "玩家特殊buff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -255 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -255 },
 			size = 72,
 
 		-- Trinket Procs
 			-- Cleansing Tears / Läuternde Tränen (Tear of Blood)
-			list = {
+			
 			{ spellID = 91139, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Fury of the Five Flights / Furor der fünf Schwärme
 			{ spellID = 60314, unitId = "player", caster = "player", filter = "BUFF" },
@@ -860,16 +856,16 @@ ns.watchers ={
 			{ spellID = 80353, unitId = "player", caster = "all", filter = "BUFF" },
 			-- Ancient Hysteria / Uralte Hysterie (Core Hound)
 			{ spellID = 90355, unitId = "player", caster = "all", filter = "BUFF" },
-			},
+
 		},
 		{
-			name = "PVE/PVP_P_DEBUFF_ICON",
+			name = "PVE/PVP目标debuff",
 			direction = "LEFT",
-			anchor = { "RIGHT", UIParent, "CENTER", -198, -90 },
+			setpoint = { "RIGHT", UIParent, "CENTER", -198, -90 },
 			size = 72,
 			
 		
-			list = {
+			
 		-- Death Knight
 			-- Gnaw (Ghoul)
 			{ spellID = 47481, unitId = "player", caster = "all", filter = "DEBUFF" },
@@ -1155,15 +1151,15 @@ ns.watchers ={
 			{ spellID = 87873, unitId = "player", caster = "all", filter = "DEBUFF" },
 			-- Acid Rain / Säureregen (Al'Akir)
 			{ spellID = 93279, unitId = "player", caster = "all", filter = "DEBUFF" },
-			},
+
 		},
 		{
-			name = "PVP_T_BUFF_ICON",
+			name = "PVP目标buff",
 			direction = "RIGHT",
-			anchor = { "LEFT", UIParent, "CENTER", 198, -90 },
+			setpoint = { "LEFT", UIParent, "CENTER", 198, -90 },
 			size = 72,
 			
-			list = {
+			
 			-- Aspect of the Pack
 			{ spellID = 13159, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Innervate
@@ -1190,7 +1186,7 @@ ns.watchers ={
 			{ spellID = 6940, unitId = "target", caster = "all", filter = "BUFF" },
 			-- Grounding Totem Effect
 			{ spellID = 8178, unitId = "target", caster = "all", filter = "BUFF" },
-			},
+
 		},
 	},
 }

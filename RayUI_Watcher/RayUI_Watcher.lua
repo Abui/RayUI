@@ -5,6 +5,7 @@ local _, myclass = UnitClass("player")
 local page, db
 local colors = RAID_CLASS_COLORS
 local modules = {}
+local testing = false
 
 local function CreateShadow(f)
 	if f.shadow then return end
@@ -38,11 +39,15 @@ end
 
 function RayUIWatcher:OnInitialize()
 	self:RegisterChatCommand("print", "PrintCmd")
-	for _, t in ipairs(ns.watchers[myclass]) do
-		self:NewWatcher(t)
+	if type(ns.watchers[myclass]) == "table" then
+		for _, t in ipairs(ns.watchers[myclass]) do
+			self:NewWatcher(t)
+		end
 	end
-	for _, t in ipairs(ns.watchers["ALL"]) do
-		self:NewWatcher(t)
+	if type(ns.watchers["ALL"]) == "table" then
+		for _, t in ipairs(ns.watchers["ALL"]) do
+			self:NewWatcher(t)
+		end
 	end
 	ns.watchers = nil
 	local lockgroup = page:CreateMultiSelectionGroup("锁定/解锁模块")
@@ -56,9 +61,10 @@ function RayUIWatcher:OnInitialize()
 		end
 	end
 	lockgroup.OnCheckChanged = function(self, value, checked)
+		testing = not checked
 		for _, v in pairs(modules) do
-			v:TestMode(checked)
-		end
+			v:TestMode(testing)
+		end				
 		db.lock = checked == 1 and true or false
 	end
 	
@@ -98,12 +104,41 @@ function RayUIWatcher:NewWatcher(data)
 		error(format("bad argument #1 to 'RayUIWatcher:New' (table expected, got %s)", type(name)))
 		return
 	end
-	local module = self:NewModule(data.name, "AceConsole-3.0", "AceEvent-3.0")
+	local name, module
+	for i, v in pairs(data) do
+		if type(v) ~= "table" then
+			if i:lower()=="name" then
+				name = v
+			end
+		end
+	end
+	if name then
+		module = self:NewModule(name, "AceConsole-3.0", "AceEvent-3.0")
+	else
+		error("can't find argument 'name'")
+		return
+	end
 	
+	module.list = {}
+	module.bufflist = {}
+	module.debufflist = {}	
+	module.cdlist = {}
+	module.itemlist = {}
+	module.button = {}	
+	
+	for i, v in pairs(data) do
+		if type(v) ~= "table" or (type(v) == "table" and type(i) ~= "number") then
+			module[i:lower()] = v
+		else
+			table.insert(module.list, v)
+		end
+	end
+
 	function module:OnEnable()
 		if self.parent then
 			self.parent:Show()
 		end
+		self:TestMode(testing)
 		self:Update()
 	end
 	
@@ -148,23 +183,25 @@ function RayUIWatcher:NewWatcher(data)
 			button.statusbar.bg:SetPoint("TOPLEFT", -2, 2)
 			button.statusbar.bg:SetPoint("BOTTOMRIGHT", 2, -2)
 			CreateShadow(button.statusbar.bg)
-			button.statusbar:SetWidth(self.barWidth - 6)
-			button.statusbar:SetHeight(self.size - 4)
+			button.statusbar:SetWidth(self.barwidth - 6)
+			button.statusbar:SetHeight(5)
 			button.statusbar:SetStatusBarTexture([[Interface\AddOns\RayUI_Watcher\media\statusbar.tga]])
 			button.statusbar:SetStatusBarColor(colors[myclass].r, colors[myclass].g, colors[myclass].b, 1)
-			if ( self.iconSide == "LEFT" ) then
-				button.statusbar:SetPoint("LEFT", button, "RIGHT", 5, 0)
-			elseif ( self.iconSide == "RIGHT" ) then
-				button.statusbar:SetPoint("RIGHT", button, "LEFT", -5, 0)
+			if ( self.iconside == "RIGHT" ) then
+				button.statusbar:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", -5, 2)
+			else
+				button.statusbar:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 5, 2)
 			end
 			button.statusbar:SetMinMaxValues(0, 1)
 			button.statusbar:SetValue(1)
 			button.time = button:CreateFontString(nil, "OVERLAY")
 			button.time:SetFont(ns.font, ns.fontsize, ns.fontflag)
-			button.time:SetPoint("RIGHT", button.statusbar, "RIGHT", -5, 0)
+			button.time:SetPoint("BOTTOMRIGHT", button.statusbar, "TOPRIGHT", 0, 2)
+			button.time:SetText("60")
 			button.name = button:CreateFontString(nil, "OVERLAY")
 			button.name:SetFont(ns.font, ns.fontsize, ns.fontflag)
-			button.name:SetPoint("LEFT", button.statusbar, "LEFT", 5, 0)
+			button.name:SetPoint("BOTTOMLEFT", button.statusbar, "TOPLEFT", 0, 2)
+			button.name:SetText("技能名称")
 			button.mode = "BAR"
 		else			
 			button.cooldown = CreateFrame("Cooldown", nil, button, "CooldownFrameTemplate")
@@ -322,8 +359,7 @@ function RayUIWatcher:NewWatcher(data)
 	
 	function module:TestMode(arg)
 		if not self:IsEnabled() then return end
-		if arg == true or self.testmode ~= true then
-			self.testmode = true
+		if arg == true then
 			local num = 1
 			module:UnregisterEvent("UNIT_AURA")
 			module:UnregisterEvent("PLAYER_TARGET_CHANGED")
@@ -356,7 +392,6 @@ function RayUIWatcher:NewWatcher(data)
 			end
 			self.moverFrame:Show()
 		else
-			self.testmode = false
 			module:RegisterEvent("UNIT_AURA")
 			module:RegisterEvent("PLAYER_TARGET_CHANGED")
 			module:RegisterEvent("SPELL_UPDATE_COOLDOWN")
@@ -391,9 +426,9 @@ function RayUIWatcher:NewWatcher(data)
 		end
 	end
 	
-	module.parent = CreateFrame("Frame", data.name, UIParent)
-	module.parent:SetSize(data.size, data.size)
-	module.parent:SetPoint(unpack(data.anchor))
+	module.parent = CreateFrame("Frame", module.name, UIParent)
+	module.parent:SetSize(module.size, module.size)
+	module.parent:SetPoint(unpack(module.setpoint))
 	module.parent:SetMovable(true)
 	
 	local mover = CreateFrame("Frame", nil, module.parent)
@@ -405,7 +440,7 @@ function RayUIWatcher:NewWatcher(data)
 	mover.mask:SetTexture(0, 1, 0, 0.5)
 	mover.text = mover:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 	mover.text:SetPoint("CENTER")
-	mover.text:SetText(data.name)
+	mover.text:SetText(module.name)
 	
 	mover:RegisterForDrag("LeftButton")
 	mover:SetScript("OnDragStart", function(self) self:GetParent():StartMoving() end)
@@ -414,7 +449,7 @@ function RayUIWatcher:NewWatcher(data)
 	mover:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:ClearLines()
-		GameTooltip:AddLine(data.name)
+		GameTooltip:AddLine(self.name)
 		GameTooltip:AddLine("拖拽左键移动，右键设置", 1, 1, 1)
 		GameTooltip:Show()
 	end)
@@ -429,21 +464,7 @@ function RayUIWatcher:NewWatcher(data)
 	
 	mover:Hide()
 	
-	module.list = data.list
-	module.direction = data.direction
-	module.size = data.size
-	module.barWidth = data.barWidth
-	module.mode = data.mode
-	module.iconSide = data.iconSide
-	module.bufflist = {}
-	module.debufflist = {}	
-	module.cdlist = {}
-	module.itemlist = {}
-	module.button = {}	
-	
-	module.testmode = false
-	
-	for i, t in ipairs(data.list) do
+	for i, t in ipairs(module.list) do
 		if t.filter == "BUFF" then
 			module.bufflist[t.spellID] = {unitId = t.unitId, caster = t.caster,}
 		elseif t.filter == "DEBUFF" then
@@ -491,7 +512,8 @@ end)
 
 SLASH_TESTMODE1="/testmode"
 SlashCmdList["TESTMODE"]=function(msg)
-	for _, v in pairs(modules) do
-		v:TestMode()
+	testing = not testing
+	for _, v in pairs(modules) do		
+		v:TestMode(testing)
 	end
 end
