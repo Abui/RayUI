@@ -21,6 +21,8 @@ local GetNumTalentTabs = GetNumTalentTabs
 local GetNumTalents = GetNumTalents
 local GetTalentInfo = GetTalentInfo
 local GetSpellBookItemName = GetSpellBookItemName
+local GetSpellBookItemInfo = GetSpellBookItemInfo
+local IsSpellKnown = IsSpellKnown
 local GetGlyphLink = GetGlyphLink
 local strfind = strfind
 local GetSpellInfo = GetSpellInfo
@@ -219,8 +221,11 @@ local function UpdateSpellData(isPet)
 	local i
 	for i = 1, 1024 do
 		local name = GetSpellBookItemName(i, book)
-		if name then
-			list[name] = i
+		local _, spellID = GetSpellBookItemInfo(i, book)
+		if name and spellID then
+			if IsSpellKnown(spellID, isPet) then
+				list[name] = i
+			end
 		else
 			break
 		end
