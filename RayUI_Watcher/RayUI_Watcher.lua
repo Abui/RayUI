@@ -414,7 +414,7 @@ function RayUIWatcher:NewWatcher(data)
 		self:Update()
 	end
 	
-	function module:PLAYER_ENTERING_WORLD()		
+	function module:PLAYER_ENTERING_WORLD()
 		if db.profiles[myclass][self:GetName()] == false then
 			self:Disable()
 		else
