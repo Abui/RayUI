@@ -1,5 +1,5 @@
 --Credit Baudzilla
-local R, C, DB = unpack(select(2, ...))
+local R, C, L, DB = unpack(select(2, ...))
 
 local ButtonIsDown
 local RaidMarkFrame = CreateFrame("Frame", nil, UIParent)

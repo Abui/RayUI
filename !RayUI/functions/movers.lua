@@ -1,6 +1,6 @@
 --Create a Mover frame by Elv
 
-local R, C, DB = unpack(select(2, ...)) -- Import Functions/Constants, Config, Locales
+local R, C, L, DB = unpack(select(2, ...))
 
 R.CreatedMovers = {}
 
@@ -134,8 +134,6 @@ function R.ToggleMovers()
 	if oUF_Freeb or oUF then
 		R.MoveoUF()
 	end
-	
-	R.ToggleFilger()
 	
 	for name, _ in pairs(R.CreatedMovers) do
 		if _G[name]:IsShown() then

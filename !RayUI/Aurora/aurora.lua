@@ -1,4 +1,4 @@
-local R,C = unpack(select(2, ...))
+local R, C, L, DB = unpack(select(2, ...))
 local map = true -- yay map
 
 local alpha = .5 -- controls the backdrop opacity (0 = invisible, 1 = solid)
@@ -409,11 +409,34 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 
 		-- [[ Simple backdrops ]]
 
-		local bds = {"AutoCompleteBox", "BNToastFrame", "TicketStatusFrameButton", "DropDownList1Backdrop", "DropDownList2Backdrop", "LFDSearchStatus", "DropDownList1MenuBackdrop", "DropDownList2MenuBackdrop", "GearManagerDialogPopup", "TokenFramePopup", "ReputationDetailFrame", "RaidInfoFrame"}
+		local bds = {"AutoCompleteBox", "BNToastFrame", "TicketStatusFrameButton", 
+		-- "DropDownList1Backdrop", 
+		-- "DropDownList2Backdrop", 
+		"LFDSearchStatus", 
+		-- "DropDownList1MenuBackdrop", 
+		-- "DropDownList2MenuBackdrop", 
+		"GearManagerDialogPopup", "TokenFramePopup", "ReputationDetailFrame", "RaidInfoFrame"}
 
 		for i = 1, #bds do
 			R.CreateBD(_G[bds[i]])
 		end
+		
+		-- Skin all DropDownList[i]
+		local function SkinDropDownList(level, index)
+			for i = 1, UIDROPDOWNMENU_MAXLEVELS do
+				local dropdown = _G["DropDownList"..i.."MenuBackdrop"]
+				if not dropdown.isSkinned then
+					R.CreateBD(dropdown)
+					dropdown.isSkinned = true
+				end
+				dropdown = _G["DropDownList"..i.."Backdrop"]
+				if not dropdown.isSkinned then
+					R.CreateBD(dropdown)
+					dropdown.isSkinned = true
+				end
+			end
+		end
+		hooksecurefunc("UIDropDownMenu_CreateFrames", SkinDropDownList)
 
 		local lightbds = {"SpellBookCompanionModelFrame", "SecondaryProfession1", "SecondaryProfession2", "SecondaryProfession3", "SecondaryProfession4", "ChatConfigCategoryFrame", "ChatConfigBackgroundFrame", "ChatConfigChatSettingsLeft", "ChatConfigChatSettingsClassColorLegend", "ChatConfigChannelSettingsLeft", "ChatConfigChannelSettingsClassColorLegend", "FriendsFriendsList", "QuestLogCount", "HelpFrameTicketScrollFrame", "HelpFrameGM_ResponseScrollFrame1", "HelpFrameGM_ResponseScrollFrame2", "GuildRegistrarFrameEditBox", "FriendsFriendsNoteFrame", "AddFriendNoteFrame"}
 		for i = 1, #lightbds do
@@ -1131,8 +1154,6 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 			slot:SetNormalTexture("")
 			slot:SetPushedTexture("")
 			ic:SetTexCoord(.08, .92, .08, .92)
-
-			slot.bg = R.CreateBG(slot)
 		end
 
 		select(9, CharacterMainHandSlot:GetRegions()):Hide()
@@ -1140,15 +1161,12 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 
 		hooksecurefunc("PaperDollItemSlotButton_Update", function()
 			for i = 1, #slots do
-				local slot = _G["Character"..slots[i].."Slot"]
 				local ic = _G["Character"..slots[i].."SlotIconTexture"]
 
 				if GetInventoryItemLink("player", i) then
 					ic:SetAlpha(1)
-					slot.bg:SetAlpha(1)
 				else
 					ic:SetAlpha(0)
-					slot.bg:SetAlpha(0)
 				end
 			end
 		end)
@@ -1987,7 +2005,7 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 
 		-- [[ Buttons ]]
 
-		for i = 1, 2 do
+		for i = 1, 4 do
 			for j = 1, 3 do
 				R.Reskin(_G["StaticPopup"..i.."Button"..j])
 			end
@@ -3377,16 +3395,27 @@ Skin:SetScript("OnEvent", function(self, event, addon)
 
 		for i = 1, #slots do
 			local slot = _G["Inspect"..slots[i].."Slot"]
-			slot:DisableDrawLayer("BACKGROUND")
+			_G["Inspect"..slots[i].."SlotFrame"]:Hide()
 			slot:SetNormalTexture("")
 			slot:SetPushedTexture("")
-			slot.bd = CreateFrame("Frame", nil, slot)
-			slot.bd:SetPoint("TOPLEFT", -1, 1)
-			slot.bd:SetPoint("BOTTOMRIGHT", 1, -1)
-			slot.bd:SetFrameLevel(0)
-			R.CreateBD(slot.bd, .25)
 			_G["Inspect"..slots[i].."SlotIconTexture"]:SetTexCoord(.08, .92, .08, .92)
 		end
+		select(8, InspectMainHandSlot:GetRegions()):Hide()
+		select(8, InspectRangedSlot:GetRegions()):Hide()
+		
+		hooksecurefunc("InspectPaperDollItemSlotButton_Update", function()
+			if InspectFrame:IsShown() and UnitExists(InspectFrame.unit) then
+				for i = 1, #slots do
+					local ic = _G["Character"..slots[i].."SlotIconTexture"]
+
+					if GetInventoryItemLink(InspectFrame.unit, i) then
+						ic:SetAlpha(1)
+					else
+						ic:SetAlpha(0)
+					end
+				end
+			end
+		end)
 
 		R.ReskinClose(InspectFrameCloseButton)
 	elseif addon == "Blizzard_ItemSocketingUI" then
@@ -4292,7 +4321,7 @@ Delay:SetScript("OnEvent", function()
 		end
 	end
 
-	if not(IsAddOnLoaded("Baggins") or IsAddOnLoaded("Stuffing") or IsAddOnLoaded("Combuctor") or IsAddOnLoaded("cargBags") or IsAddOnLoaded("famBags") or IsAddOnLoaded("ArkInventory")) then
+	--[[ if not(IsAddOnLoaded("Baggins") or IsAddOnLoaded("Stuffing") or IsAddOnLoaded("Combuctor") or IsAddOnLoaded("cargBags") or IsAddOnLoaded("famBags") or IsAddOnLoaded("ArkInventory")) then
 		for i = 1, 12 do
 			local con = _G["ContainerFrame"..i]
 
@@ -4380,7 +4409,7 @@ Delay:SetScript("OnEvent", function()
 
 			R.CreateBD(bag, 0)
 		end
-	end
+	end ]]
 
 	if not(IsAddOnLoaded("Butsu") or IsAddOnLoaded("LovelyLoot") or IsAddOnLoaded("XLoot")) then
 		LootFramePortraitOverlay:Hide()

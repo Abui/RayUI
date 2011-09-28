@@ -1,7 +1,7 @@
 -----------------------------------------------------
 -- Credit Tukz, Elv
 -----------------------------------------------------
-local R, C, DB = unpack(select(2, ...))
+local R, C, L, DB = unpack(select(2, ...))
 
 _, R.myclass = UnitClass("player")
 R.level = UnitLevel("player")
@@ -440,4 +440,17 @@ SetUIScale:SetScript("OnEvent", function(self, event)
 	Advanced_UseUIScale:Kill()
 	SetCVar("useUiScale", 1)
 	SetCVar("uiScale", C["general"].uiscale)
+end)
+
+local eventcount = 0
+local RayUIInGame = CreateFrame("Frame")
+RayUIInGame:RegisterAllEvents()
+RayUIInGame:SetScript("OnEvent", function(self, event)
+	eventcount = eventcount + 1
+	if InCombatLockdown() then return end
+
+	if eventcount > 6000 or event == "PLAYER_ENTERING_WORLD" then
+		collectgarbage("collect")
+		eventcount = 0
+	end
 end)

@@ -9,14 +9,15 @@
 local addon, engine = ...
 engine[1] = {} -- R, functions, constants
 engine[2] = {} -- C, config
-engine[3] = {} -- DB
+engine[3] = {} -- L, locale
+engine[4] = {} -- DB
 
 RayUI = engine 
 
 --[[
 	This should be at the top of every file inside of the ElvUI AddOn:
 	
-	local E, C, L, DB = unpack(select(2, ...))
+	local R, C, L, DB = unpack(select(2, ...))
 
 	This is how another addon imports the ElvUI engine:
 	

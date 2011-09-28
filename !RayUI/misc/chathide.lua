@@ -1,4 +1,4 @@
-local R, C, DB = unpack(select(2, ...))
+local R, C, L, DB = unpack(select(2, ...))
 
 ----------------------------------------------------------------------
 -- Setup animating chat during combat
@@ -90,14 +90,14 @@ ChatToggle:SetScript("OnEnter",function(self)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, 0)
 	GameTooltip:ClearLines()
 	if R.ChatIn then
-		GameTooltip:AddLine("点击隐藏聊天栏")
+		GameTooltip:AddLine(L["点击隐藏聊天栏"])
 	else
-		GameTooltip:AddLine("点击显示聊天栏")
+		GameTooltip:AddLine(L["点击显示聊天栏"])
 	end
 	if not hasNew then
 		UIFrameFadeIn(self, 0.5, self:GetAlpha(), 1)
 	else
-		GameTooltip:AddLine("有新的悄悄话")
+		GameTooltip:AddLine(L["有新的悄悄话"])
 	end		
 	GameTooltip:Show()
 end)
@@ -182,6 +182,7 @@ if C["chat"].autoshow then
 		end
 		ChatAutoHide:RegisterEvent(event)
 	end
+	ChatAutoHide:RegisterEvent("PLAYER_REGEN_DISABLED")
 	ChatAutoHide:SetScript("OnEvent", function(self, event, ...)
 		if(event == "CHAT_MSG_CHANNEL" and channelNumbers and not channelNumbers[select(8,...)]) then return end
 		timeout = 0
@@ -198,7 +199,7 @@ end
 if C["chat"].autohide then
 	ChatAutoHide:SetScript("OnUpdate", function(self, elapsed)
 		timeout = timeout + elapsed
-		if timeout>C["chat"].autohidetime and R.ChatIn == true and not ChatFrame1EditBox:IsShown() then
+		if timeout>C["chat"].autohidetime and R.ChatIn == true and not ChatFrame1EditBox:IsShown() and not InCombatLockdown() then
 			MoveOut()
 			R.ChatIn = false
 		end
@@ -217,4 +218,8 @@ ChatFrame1EditBox:HookScript("OnShow", function(self)
 	elseif LockToggle then
 		self:Hide()
 	end
+end)
+
+ChatFrame1EditBox:HookScript("OnHide", function(self)
+	timeout = 0
 end)

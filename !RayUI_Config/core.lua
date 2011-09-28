@@ -10,7 +10,7 @@ local ACD = LibStub("AceConfigDialog-3.0")
 local ACR = LibStub("AceConfigRegistry-3.0")
 
 function RayUIConfig:LoadDefaults()
-	R, C, DB = unpack(RayUI)
+	R, C, L, DB = unpack(RayUI)
 	--Defaults
 	defaults = {
 		profile = {
@@ -73,7 +73,7 @@ function RayUIConfig.GenerateOptions()
 end
 
 function RayUIConfig.GenerateOptionsInternal()
-	local R, C, DB = unpack(RayUI)
+	local R, C, L, DB = unpack(RayUI)
 
 	StaticPopupDialogs["CFG_RELOAD"] = {
 		text = "改变参数需重载应用设置",
