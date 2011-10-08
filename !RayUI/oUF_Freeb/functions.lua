@@ -1,4 +1,4 @@
-local R, C, DB = unpack(select(2, ...))
+local R, C, L, DB = unpack(select(2, ...))
 
 local ADDON_NAME, ns = ...
 local oUF = oUF_Freeb or ns.oUF or oUF
@@ -95,7 +95,7 @@ function R.FocusText(self)
 	focusdummytext = focusdummy:CreateFontString(self,"OVERLAY")
 	focusdummytext:Point("CENTER", self,0,0)
 	focusdummytext:SetFont(C["media"].font, C["media"].fontsize, C["media"].fontflag)
-	focusdummytext:SetText("焦点")
+	focusdummytext:SetText(L["焦点"])
 	focusdummytext:SetVertexColor(1,0.2,0.1,0)
 
 	focusdummy:SetScript("OnLeave", function(self) focusdummytext:SetVertexColor(1,0.2,0.1,0) end)
@@ -130,7 +130,7 @@ function R.ClearFocusText(self)
 	clearfocustext = clearfocus:CreateFontString(self,"OVERLAY")
 	clearfocustext:Point("CENTER", self,0,0)
 	clearfocustext:SetFont(C["media"].font, C["media"].fontsize, C["media"].fontflag)
-	clearfocustext:SetText("取消焦点")
+	clearfocustext:SetText(L["取消焦点"])
 	clearfocustext:SetVertexColor(1,0.2,0.1,0)
 
 	clearfocus:SetScript("OnLeave", function(self) clearfocustext:SetVertexColor(1,0.2,0.1,0) end)
@@ -693,7 +693,7 @@ local function HealPrediction(self)
 end
 
 local function Update_Common(frame)
-	if C["ouf"].HealFrames and healer and frame.unit:match('[^%d]+') ~= "boss" then
+	if C["ouf"].HealFrames and healer then
 		if not frame:IsElementEnabled('HealPrediction') then
 			HealPrediction(frame)
 			frame:EnableElement('HealPrediction')
@@ -840,7 +840,7 @@ function R.UpdateSingle(frame, healer)
 			frame.Buffs = b
 			frame:EnableElement('Aura')
 		end ]]
-		if C["ouf"].HealFrames and healer then
+		if R.special then
 			frame.Name:Show()
 			if frame.Castbar then
 				frame.Castbar:ClearAllPoints()
@@ -854,12 +854,26 @@ function R.UpdateSingle(frame, healer)
 				frame.Castbar.Icon:Hide()
 				frame.Castbar.Iconbg:Hide()
 			end
+		elseif C["ouf"].HealFrames and healer then
+			frame.Name:Show()
+			if frame.Castbar then
+				frame.Castbar:ClearAllPoints()
+				frame.Castbar:Point("TOPRIGHT", frame, "TOPRIGHT", 0, -50)
+				frame.Castbar:Width(frame:GetWidth()-25)
+				frame.Castbar:Height(20)
+				frame.Castbar.Text:ClearAllPoints()
+				frame.Castbar.Text:SetPoint("LEFT", frame.Castbar, "LEFT", 5, 0)
+				frame.Castbar.Time:ClearAllPoints()
+				frame.Castbar.Time:SetPoint("RIGHT", frame.Castbar, "RIGHT", -5, 0)
+				frame.Castbar.Icon:Show()
+				frame.Castbar.Iconbg:Show()
+			end
 		else
 			frame.Name:Hide()
 			if frame.Castbar then
 				frame.Castbar:ClearAllPoints()
-				frame.Castbar:Point("BOTTOM",UIParent,"BOTTOM",0,305)
-				frame.Castbar:Width(350)
+				frame.Castbar:Point("TOPRIGHT", frame, "TOPRIGHT", 0, -35)
+				frame.Castbar:Width(frame:GetWidth())
 				frame.Castbar:Height(5)
 				frame.Castbar.Text:ClearAllPoints()
 				frame.Castbar.Text:SetPoint("BOTTOMLEFT", frame.Castbar, "TOPLEFT", 5, -2)	

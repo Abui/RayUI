@@ -1,6 +1,6 @@
 local R, C = unpack(RayUI)
 -- Config start
-local anchor = {"RIGHT", "Minimap", "LEFT", -10, 0}
+local anchor = {"TOPRIGHT", "Minimap", "TOPLEFT", -10, 0}
 local x, y = 12, -12
 local barheight = 16.5
 local spacing = 1
@@ -17,7 +17,7 @@ local font_style = "THINOUTLINE"
 local font_size = 12
 local hidetitle = true
 local classcolorbar = true
-local onlyboss = true
+local onlyboss = false
 local classcolorname = false
 local mergeHealAbsorbs = true
 -- Config end
@@ -216,7 +216,7 @@ local CreateFS = CreateFS or function(frame)
 	return fstring
 end
 
-local CreateBG = CreateBG or function(parent)
+local CreateBG = function(parent)
 	local bg = CreateFrame("Frame", nil, parent)
 	bg:Point("TOPLEFT", -3, 2)
 	bg:Point("BOTTOMRIGHT", 3, -2)
@@ -793,18 +793,14 @@ local OnEvent = function(self, event, ...)
 			end)
 			MainFrame:SetScript("OnMouseWheel", OnMouseWheel)
 			MainFrame:Show()
-			MainFrame.title = CreateFS(MainFrame)
-			MainFrame.title:SetPoint("BOTTOM", MainFrame, "TOP", 0, 1)
-			MainFrame.title:SetText(sMode)
 			UIDropDownMenu_Initialize(menuFrame, CreateMenu, "MENU")
 			CheckRoster()
 		end
 	elseif event == "VARIABLES_LOADED" then
-		if hidetitle then
-
-
-
-			MainFrame.title:Hide()
+		if not hidetitle then
+			MainFrame.title = CreateFS(MainFrame)
+			MainFrame.title:SetPoint("BOTTOM", MainFrame, "TOP", 0, 1)
+			MainFrame.title:SetText(sMode)
 		end
 		MainFrame:SetSize(width, height)
 	elseif event == "RAID_ROSTER_UPDATE" or event == "PARTY_MEMBERS_CHANGED" or event == "PLAYER_ENTERING_WORLD" then

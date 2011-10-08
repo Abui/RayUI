@@ -85,9 +85,9 @@ SlashCmdList.MOUSEOVERBIND = function()
 				
 				bind.button.bindings = {GetBindingKey(spellmacro.." "..bind.button.name)}
 					if #bind.button.bindings == 0 then
-						GameTooltip:AddLine("未绑定.", .6, .6, .6)
+						GameTooltip:AddLine(L["未绑定."], .6, .6, .6)
 					else
-						GameTooltip:AddDoubleLine("序号", "按键", .6, .6, .6, .6, .6, .6)
+						GameTooltip:AddDoubleLine(L["序号"], L["按键"], .6, .6, .6, .6, .6, .6)
 						for i = 1, #bind.button.bindings do
 							GameTooltip:AddDoubleLine("Binding"..i, bind.button.bindings[i], 1, 1, 1)
 						end

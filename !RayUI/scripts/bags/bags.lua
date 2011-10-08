@@ -461,7 +461,7 @@ local Reset = function(self)
 	end
 	self:SetAlpha(0)
 	self:SetScript("OnLeave", HideSearch)
-	self:SetText("点击查找...")
+	self:SetText(L["点击查找..."])
 end
 
 local text

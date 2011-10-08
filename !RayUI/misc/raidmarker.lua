@@ -7,14 +7,14 @@ RaidMarkFrame:EnableMouse(true)
 RaidMarkFrame:SetSize(100, 100)
 RaidMarkFrame:SetFrameStrata("DIALOG")
 
-BINDING_NAME_RAIDMARKER = "快速团队标记"
+BINDING_NAME_RAIDMARKER = L["快速团队标记"]
 
 local function RaidMarkCanMark()
 	if GetNumRaidMembers() > 0 then
 		if IsRaidLeader()or IsRaidOfficer()then
 			return true
 		else
-			UIErrorsFrame:AddMessage("你没有权限设置团队标记", 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
+			UIErrorsFrame:AddMessage(L["你没有权限设置团队标记"], 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
 			return false
 		end	
 	else
