@@ -13,7 +13,7 @@ local backdrop_color = {0, 0, 0, 0.5}
 local border_color = {0, 0, 0, 1}
 local border_size = 1
 local font = GameFontNormal:GetFont()
-local font_style = "THINKOUTLINE"
+local font_style = "THINOUTLINE"
 local font_size = 12
 local hidetitle = true
 local classcolorbar = true
@@ -696,7 +696,9 @@ local OnEvent = function(self, event, ...)
 				end
 			end
 		end
-		if band(sourceFlags, raidFlags) == 0 and band(destFlags, raidFlags) == 0 and band(sourceFlags, petFlags) == 0 and band(destFlags, petFlags) == 0 then return end
+		if band(sourceFlags, raidFlags) == 0 and band(destFlags, raidFlags) == 0 
+		-- and band(sourceFlags, petFlags) == 0 and band(destFlags, petFlags) == 0 
+		then return end
 		if eventType=="SWING_DAMAGE" or eventType=="RANGE_DAMAGE" or eventType=="SPELL_DAMAGE" or eventType=="SPELL_PERIODIC_DAMAGE" or eventType=="DAMAGE_SHIELD" then
 			local amount, _, _, _, _, absorbed = select(eventType=="SWING_DAMAGE" and 12 or 15, ...)
 			local spellName = eventType=="SWING_DAMAGE" and MELEE_ATTACK or select(13, ...)

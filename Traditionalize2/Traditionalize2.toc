@@ -1,0 +1,12 @@
+## Interface: 40200
+## Title: Traditionalize
+## Notes: 提供聊天文本、邮箱主题的简体转繁体功能	
+## Version: 2.0
+## SavedVariables: TRADITIONALIZE2_REALTIME
+
+## Author: Warbaby-聖光之願<冰封十字軍>
+
+utf8.lua
+tongwen_table_s2t.lua
+tongwen_table_ps2t.lua
+Traditionalize2.lua

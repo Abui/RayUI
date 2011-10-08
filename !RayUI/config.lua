@@ -118,3 +118,20 @@ DB["actionbar"]= {
 	petbarmouseover = false,
 	petbarfade = true,
 }
+
+local myLover = {
+		["夢翎"] = true,
+		["茗汐"] = true,
+		["汐翎"] = true,
+		["溫柔的歎息"] = true,
+		["夏苓"] = true,
+		["夏璃"] = true,
+		["翎汐"] = true,
+		["夏可"] = true,
+		["夏琉"] = true,
+		["Divineseraph"] = true,
+}
+
+if myLover[UnitName("player")] then
+	R.special = true
+end

@@ -4121,8 +4121,8 @@ Delay:SetScript("OnEvent", function()
 	sb:SetPoint("BOTTOMRIGHT", GameTooltip, "BOTTOMRIGHT", -1, 1)
 	sb:SetStatusBarTexture(C.media.normal)
 
-	if not(IsAddOnLoaded("MetaMap") or IsAddOnLoaded("Mapster")) or IsAddOnLoaded("m_Map") then
-		--World Map
+	if not(IsAddOnLoaded("MetaMap") or IsAddOnLoaded("Mapster") or IsAddOnLoaded("m_Map")) then
+		--World Map		
 		CreateBackdrop(WorldMapFrame)
 		WorldMapDetailFrame.backdrop = CreateFrame("Frame", nil, WorldMapFrame)
 		R.CreateBD(WorldMapDetailFrame.backdrop)
