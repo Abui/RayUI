@@ -3,7 +3,7 @@ local R, C, L, DB = unpack(select(2, ...))
 function R.Update_ActionBar()
 	if R.SavePath["movers"] == nil then R.SavePath["movers"] = {} end
 	if  R.TableIsEmpty(R.SavePath["movers"]["ActionBar1Mover"]) and R.TableIsEmpty(R.SavePath["movers"]["ActionBar2Mover"]) and R.TableIsEmpty(R.SavePath["movers"]["ActionBar3Mover"]) then
-		if R.special then
+		if C.general.speciallayout then
 			ActionBar1Mover:ClearAllPoints()
 			ActionBar1Mover:SetPoint("BOTTOM", "UIParent", "BOTTOM", -3 * C["actionbar"].buttonsize -3 * C["actionbar"].buttonspacing, 240)
 			ActionBar2Mover:ClearAllPoints()

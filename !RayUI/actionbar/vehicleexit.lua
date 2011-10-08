@@ -4,7 +4,7 @@ local R, C, L, DB = unpack(select(2, ...))
 local bar = CreateFrame("Frame","rABS_VehicleBar",UIParent, "SecureHandlerStateTemplate")
 bar:SetHeight(C["actionbar"].buttonsize)
 bar:SetWidth(C["actionbar"].buttonsize)
-if R.special then
+if C.general.speciallayout then
 	bar:SetPoint("BOTTOMLEFT", "rABS_MultiBarBottomLeft", "BOTTOMRIGHT", C["actionbar"].buttonspacing, 0)
 else
 	bar:SetPoint("LEFT", "rABS_MainMenuBar", "RIGHT", C["actionbar"].buttonspacing, 0)

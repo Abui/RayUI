@@ -2,7 +2,7 @@ local R, C, L, DB = unpack(select(2, ...))
 
   
 local bar = CreateFrame("Frame","rABS_MultiBarBottomLeft",UIParent, "SecureHandlerStateTemplate")
-if R.special then
+if C.general.speciallayout then
 	bar:SetWidth(C["actionbar"].buttonsize*6+C["actionbar"].buttonspacing*5)
 	bar:SetHeight(C["actionbar"].buttonsize*2+C["actionbar"].buttonspacing)
 else
@@ -23,7 +23,7 @@ for i=1, 12 do
 	local button = _G["MultiBarBottomLeftButton"..i]
 	button:SetSize(C["actionbar"].buttonsize, C["actionbar"].buttonsize)
 	button:ClearAllPoints()
-	if R.special then
+	if C.general.speciallayout then
 		if i == 1 then
 			button:SetPoint("TOPLEFT", bar, 0,0)
 		elseif i==7 then

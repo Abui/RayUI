@@ -1,5 +1,5 @@
 local RayUIConfig = LibStub("AceAddon-3.0"):NewAddon("RayUIConfig", "AceConsole-3.0", "AceEvent-3.0")
-local R, C, DB
+local R, C, L, DB
 local LSM = LibStub("LibSharedMedia-3.0")
 local db = {}
 local defaults
@@ -115,6 +115,12 @@ function RayUIConfig.GenerateOptionsInternal()
 						type = "range",
 						min = 0.64, max = 1, step = 0.01,
 						isPercent = true,
+					},
+					speciallayout = {
+						order = 2,
+						name = "特殊布局",
+						desc = "夏某可的奇葩布局",
+						type = "toggle",
 					},
 				},
 			},
@@ -385,5 +391,3 @@ function RayUIConfig.GenerateOptionsInternal()
 	
 	RayUIConfig.Options.args.profiles = RayUIConfig.profile
 end
-
-

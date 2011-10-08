@@ -1,6 +1,7 @@
 local R, C = unpack(RayUI)
 -- Config start
-local anchor = {"TOPRIGHT", "Minimap", "TOPLEFT", -10, 0}
+local topanchor = {"TOP", "Minimap", "BOTTOM", 0, -10}
+local bottomanchor = {"TOPRIGHT", "Minimap", "TOPLEFT", -10, 0}
 local x, y = 12, -12
 local barheight = 16.5
 local spacing = 1
@@ -773,7 +774,15 @@ local OnEvent = function(self, event, ...)
 		if name == addon_name then
 			self:UnregisterEvent(event)
 			MainFrame = CreateFrame("Frame", addon_name.."Frame", UIParent)
-			MainFrame:SetPoint(unpack(anchor))
+			MainFrame:SetPoint(unpack(select(3, Minimap:GetPoint()):upper():find("TOP") and topanchor or bottomanchor))
+			hooksecurefunc(Minimap, "SetPoint", function()
+				MainFrame:ClearAllPoints()
+				if select(3, Minimap:GetPoint()):upper():find("TOP") then
+					MainFrame:SetPoint(unpack(topanchor))
+				else
+					MainFrame:SetPoint(unpack(bottomanchor))
+				end
+			end)
 			MainFrame.bg = CreateBG(MainFrame)
 			MainFrame:SetMovable(true)
 			MainFrame:EnableMouse(true)

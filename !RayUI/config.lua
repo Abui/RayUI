@@ -15,7 +15,8 @@ DB["media"]={
 }
 
 DB["general"]={
-	uiscale = 0.80
+	uiscale = 0.80,
+	speciallayout = false,
 }
 
 DB["ouf"]={
@@ -133,5 +134,5 @@ local myLover = {
 }
 
 if myLover[UnitName("player")] then
-	R.special = true
+	DB.general.special = true
 end

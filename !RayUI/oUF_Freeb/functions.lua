@@ -840,7 +840,7 @@ function R.UpdateSingle(frame, healer)
 			frame.Buffs = b
 			frame:EnableElement('Aura')
 		end ]]
-		if R.special then
+		if C.general.speciallayout then
 			frame.Name:Show()
 			if frame.Castbar then
 				frame.Castbar:ClearAllPoints()
@@ -885,7 +885,7 @@ function R.UpdateSingle(frame, healer)
 		end
 		
 		if R.TableIsEmpty(R.SavePath["UFPos"]["Freeb - Player"]) then
-			if R.special then
+			if C.general.speciallayout then
 				frame:ClearAllPoints()
 				frame:Point("BOTTOMRIGHT", UIParent, "BOTTOM", -70, 380)
 			elseif C["ouf"].HealFrames and healer then
@@ -1048,7 +1048,7 @@ function R.UpdateSingle(frame, healer)
 			frame:EnableElement('Aura')
 		end
 		if R.TableIsEmpty(R.SavePath["UFPos"]["Freeb - Target"]) then
-			if R.special then
+			if C.general.speciallayout then
 				frame:ClearAllPoints()
 				frame:Point("BOTTOMLEFT", UIParent, "BOTTOM", 70, 380)
 			elseif C["ouf"].HealFrames and healer then
@@ -1061,7 +1061,7 @@ function R.UpdateSingle(frame, healer)
 		end
 	elseif frame.unit == "targettarget" then
 		if R.TableIsEmpty(R.SavePath["UFPos"]["Freeb - Targettarget"]) then
-			if R.special then
+			if C.general.speciallayout then
 				frame:ClearAllPoints()
 				frame:Point("BOTTOMLEFT", oUF_FreebTarget, "TOPRIGHT", 10, 6)
 			elseif C["ouf"].HealFrames and healer then
@@ -1121,7 +1121,10 @@ function R.UpdateHeader(frame, healer)
 			RegisterAttributeDriver(frame, 'state-visibility', "[@raid6,exists] hide;show")
 		end
 	elseif frame.style == "Freebgrid" then
-		if C["ouf"].HealFrames and healer then
+		if C.general.speciallayout then
+			frame:SetScale(1)
+			frame:SetAttribute("showParty", true)
+		elseif C["ouf"].HealFrames and healer then
 			frame:SetScale(1.25)
 			frame:SetAttribute("showParty", true)
 		else
@@ -1136,7 +1139,7 @@ function R.UpdateHeader(frame, healer)
 			end
 		end
 		if R.TableIsEmpty(R.SavePath["UFPos"]["Freebgrid"]) and frame==Raid_Freebgrid1 then
-			if R.special then
+			if C.general.speciallayout then
 				frame:ClearAllPoints()
 				frame:Point("TOPLEFT", UIParent, "BOTTOMRIGHT", - frame:GetChildren():GetWidth()*5 -  frame:GetAttribute("columnSpacing")*4 - 50, frame:GetChildren():GetHeight()*5 +  frame:GetAttribute("columnSpacing")*4 + 260)
 			elseif C["ouf"].HealFrames and healer then
