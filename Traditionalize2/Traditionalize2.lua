@@ -202,6 +202,7 @@ function TraditionalizeFrame_OnEvent(self, event, addon)
 			TraditionalizeEditBox(v);
 		end
 	elseif event == "ADDON_LOADED" and addon=="Blizzard_AuctionUI" and GetLocale() == "zhTW" then
+		self:UnregisterEvent("ADDON_LOADED")
 		TraditionalizeEditBox("BrowseName")
 	end
 end

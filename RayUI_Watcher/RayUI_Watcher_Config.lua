@@ -1,12 +1,12 @@
 
 -----------------------------------------------------------------------------------------------------
 -- name = "目标debuff",
--- setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+-- setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 -- direction = "UP",
 -- iconSide = "LEFT",
 -- mode = "BAR", 
 -- size = 24,
--- barWidth = 200,				
+-- barWidth = 170,				
 --	{spellID = 8050, unitId = "target", caster = "target", filter = "DEBUFF"},
 --	{ spellID = 18499, filter = "CD" },
 --	{ itemID = 56285, filter = "CD" },
@@ -23,7 +23,7 @@ ns.watchers ={
 		{
 			name = "玩家buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 60 },
 			size = 32,
 
 			-- Lifebloom / Blühendes Leben
@@ -38,7 +38,7 @@ ns.watchers ={
 		{
 			name = "目标buff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 60 },
 			size = 32,
 
 			-- Lifebloom / Blühendes Leben
@@ -54,7 +54,7 @@ ns.watchers ={
 		{
 			name = "玩家重要buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
 			-- Eclipse (Lunar) / Mondfinsternis
@@ -80,7 +80,7 @@ ns.watchers ={
 		{
 			name = "目标debuff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			size = 47,
 			
 			-- Hibernate / Winterschlaf
@@ -114,11 +114,11 @@ ns.watchers ={
 		{
 			name = "焦点debuff",
 			direction = "UP",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebFocus", "TOPLEFT", 0, 10 },
 			size = 32, 
 			mode = "BAR",
 			iconSide = "LEFT",
-			barWidth = 200,
+			barWidth = 170,
 			
 			-- Hibernate / Winterschlaf
 			{ spellID = 2637, unitId = "focus", caster = "all", filter = "DEBUFF" },
@@ -130,11 +130,11 @@ ns.watchers ={
 		{
 			name = "CD",
 			direction = "UP",
-			iconSide = "RIGHT",
+			iconSide = "LEFT",
 			mode = "BAR",
 			size = 32,
-			barWidth = 200,
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, 100 },
+			barWidth = 170,
+			setpoint = { "TOPLEFT", "rABS_MultiBarBottomLeft", "TOPRIGHT", 10, 0 },
 
 			-- Swiftmend / Rasche Heilung
 			{ spellID = 18562, filter = "CD" },
@@ -146,7 +146,7 @@ ns.watchers ={
 		{
 			name = "玩家重要buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
 			-- Lock and Load / Sichern und Laden
@@ -170,7 +170,7 @@ ns.watchers ={
 		{
 			name = "目标debuff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			size = 47,
 			
 			-- Wyvern Sting / Wyverngift
@@ -192,11 +192,11 @@ ns.watchers ={
 		{
 			name = "焦点debuff",
 			direction = "UP",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebFocus", "TOPLEFT", 0, 10 },
 			size = 32, 
 			mode = "BAR",
 			iconSide = "LEFT",
-			barWidth = 200,
+			barWidth = 170,
 			
 			-- Wyvern Sting / Wyverngift
 			{ spellID = 19386, unitId = "focus", caster = "all", filter = "DEBUFF" },
@@ -206,108 +206,71 @@ ns.watchers ={
 	},
 	["MAGE"] = {
 		{
-			name = "P_PROC_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			setPoint = { "right", "oUF_FreebPlayer", "right", 0, 40  },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
-			--Frostbite/Erfrierung/霜寒刺骨
-			--{ spellID = 11071, size = 47, unitId = "target", caster = "all", filter = "DEBUFF" },
-			--深冬之寒
-			{ spellID = 28593, size = 47, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--寒冰指
-			{ spellID = 83074, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
-			--腦部凍結
-			{ spellID = 44549, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
-			--熱門連勝
-			{ spellID = 44448, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
-			--節能施法
-			{ spellID = 12575, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
-			--衝擊
-			{ spellID = 12357, size = 47, unitId = "player", caster = "player", filter = "BUFF" },
-			--嗜血
-			{ spellID = 2825, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
-			--英勇氣概
-			{ spellID = 32182, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Frostbite / Frostbite
+			--{ spellID = 11071, unitId = "target", caster = "all", filter = "DEBUFF" },
+			-- Winter's Chill / Winterkälte
+			{ spellID = 28593, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Fingers of Frost / Eisige Finger
+			{ spellID = 44544, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Brain Freeze / Hirnfrost
+			{ spellID = 57761, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Hot Streak / Kampfeshitze
+			{ spellID = 44445, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Missile Barrage / Geschosssalve
+			{ spellID = 54486, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Clearcasting / Freizaubern
+			{ spellID = 12536, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Impact / Einschlag
+			{ spellID = 12358, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{
-			name = "P_BUFF_BAR",
-			direction = "DOWN",
-			Mode = "BAR",
-			setPoint = { "BOTTOM", nil, "BOTTOM", 284, 268 },
-			size = 30,
+			name = "目标debuff",
+			direction = "RIGHT",
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
+			size = 47,
+			
+			-- Polymorph / Verwandlung
+			{ spellID = 118, unitId = "target", caster = "all", filter = "DEBUFF" },
+			-- Arcane Blast / Arkanschlag
+			{ spellID = 36032, unitId = "player", caster = "player", filter = "DEBUFF" },
+			-- Improved Scorch / Verbessertes Versengen
+			{ spellID = 11367, unitId = "target", caster = "all", filter = "DEBUFF" },
+			-- Scorch / Versengen
+			{ spellID = 2948, unitId = "target", caster = "all", filter = "DEBUFF" },
+			-- Slow / Verlangsamen
+			{ spellID = 31589, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Ignite / Entzünden
+			{ spellID = 11119, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Living Bomb / Lebende Bombe
+			{ spellID = 44457, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Pyroblast! / Pyroschlag!
+			{ spellID = 92315, unitId = "player", caster = "player", filter = "DEBUFF" },
+
+		},
+		{
+			name = "焦点debuff",
+			direction = "UP",
+			setpoint = { "BOTTOMLEFT", "oUF_FreebFocus", "TOPLEFT", 0, 10 },
+			size = 32, 
+			mode = "BAR",
 			iconSide = "LEFT",
-			barWidth = 180, 
+			barWidth = 170,
 			
-			--鏡像
-			{ spellID = 55342, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --烈焰之球
-			{ spellID = 82731, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --霜之環
-			{ spellID = 84676, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --秘法強化
-			{ spellID = 12042, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --喚醒
-			{ spellID = 12051, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-
-		},
-		{
-			name = "T_DEBUFF_ICON",
-			direction = "RIGHT",
-			setPoint = { "left", "oUF_FreebTarget", "left", -1, 65 },
-			size = 47, 
-			Mode = "ICON",
-			
-			--減速術
-			{ spellID = 31589, size = 47, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--點燃
-			{ spellID = 12846, size = 47, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--活體炸彈
-			{ spellID = 44457, size = 47, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--變羊
-			{ spellID = 118, size = 47, unitId = "target", caster = "all", filter = "DEBUFF" },
-		},
-		{
-			name = "秘法衝擊",
-			direction = "RIGHT",
-			setPoint = { "right", "oUF_FreebPlayer", "right", 0, -38 },
-			size = 47, 
-			Mode = "ICON",
-			
-			--秘法衝擊
-			{ spellID = 30451, size = 47, unitId = "player", caster = "player", filter = "DEBUFF" },
-		},
-		{
-			name = "P_BUFFS_ICON",
-			direction = "RIGHT",
-			setPoint = { "center", nil, "center", -100, -378 },
-			size = 42, 
-			Mode = "ICON",
-			
-			 --能量洪流
-            { spellID = 74241, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-            --神經突觸彈簧
-            { spellID = 96230, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-            --災厄魔力
-            { spellID = 91007, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-			--光紋刺繡
-            { spellID = 75170, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-			--魂棺
-            { spellID = 91019, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-			 --法力寶石
-            { spellID = 83098, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-            --火山毀滅
-            { spellID = 89091, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-			--鏡子
-			{ spellID = 91024, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Polymorph / Verwandlung
+			{ spellID = 118, unitId = "focus", caster = "all", filter = "DEBUFF" },
 		},
 	},
 	["WARRIOR"] = {
 		{
 			name = "玩家重要buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
 			-- Sudden Death / Plötzlicher Tod
@@ -333,7 +296,7 @@ ns.watchers ={
 		{
 			name = "目标debuff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			size = 47,
 			
 			-- Charge Stun / Sturmangriffsbetäubung
@@ -367,7 +330,7 @@ ns.watchers ={
 		{
 			name = "玩家buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 60 },
 			size = 32,
 			
 			-- Earth Shield / Erdschild
@@ -383,7 +346,7 @@ ns.watchers ={
 		{
 			name = "目标buff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 60 },
 			size = 32,
 			
 			-- Earth Shield / Erdschild
@@ -395,7 +358,7 @@ ns.watchers ={
 		{
 			name = "玩家重要buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
 			-- Maelstorm Weapon / Waffe des Mahlstroms
@@ -413,7 +376,7 @@ ns.watchers ={
 		{
 			name = "目标debuff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			size = 47,
 			
 			-- Hex / Verhexen
@@ -433,11 +396,11 @@ ns.watchers ={
 		{
 			name = "焦点debuff",
 			direction = "UP",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebFocus", "TOPLEFT", 0, 10 },
 			size = 32, 
 			mode = "BAR",
 			iconSide = "LEFT",
-			barWidth = 200,
+			barWidth = 170,
 			
 			-- Hex / Verhexen
 			{ spellID = 51514, unitId = "focus", caster = "all", filter = "DEBUFF" },
@@ -450,18 +413,17 @@ ns.watchers ={
 		{
 			name = "玩家buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -146 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 60 },
 			size = 32,
 			
 			-- Beacon of Light / Flamme des Glaubens
 			{ spellID = 53563, unitId = "player", caster = "player", filter = "BUFF" },
-			{ spellID = 20154, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{
 			name = "目标buff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -146 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 60 },
 			size = 32,
 			
 			-- Beacon of Light / Flamme des Glaubens
@@ -471,7 +433,7 @@ ns.watchers ={
 		{
 			name = "玩家重要buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
 			-- Judgements of the Pure / Richturteile des Reinen
@@ -493,7 +455,7 @@ ns.watchers ={
 		{
 			name = "目标debuff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			size = 47,
 			
 			-- Hammer of Justice / Hammer der Gerechtigkeit
@@ -505,11 +467,11 @@ ns.watchers ={
 		{
 			name = "焦点debuff",
 			direction = "UP",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, 100 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebFocus", "TOPLEFT", 0, 10 },
 			size = 32, 
 			mode = "BAR",
 			iconSide = "LEFT",
-			barWidth = 200,
+			barWidth = 170,
 			
 			-- Hammer of Justice / Hammer der Gerechtigkeit
 			{ spellID = 853, unitId = "focus", caster = "all", filter = "DEBUFF" },
@@ -518,115 +480,125 @@ ns.watchers ={
 	},
 	["PRIEST"] = {
 		{
-			name = "P_BUFFS_ICON",
+			name = "玩家buff",
 			direction = "LEFT",
-			setPoint = { "center", nil, "center", -100, -378 },
-			size = 42,
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 60 },
+			size = 32,
 			
-			--能量洪流
-            { spellID = 74241, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-            --神經突觸彈簧
-            { spellID = 96230, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-            --災厄魔力
-            { spellID = 91007, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-            --火山毀滅
-            { spellID = 89091, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
-			--鏡子
-			{ spellID = 91024, size = 42, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Prayer of Mending / Gebet der Besserung
+			{ spellID = 41635, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Guardian Spirit / Schutzgeist
+			{ spellID = 47788, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Pain Suppression / Schmerzunterdrückung
+			{ spellID = 33206, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Power Word: Shield / Machtwort: Schild
+			{ spellID = 17, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Renew / Erneuerung
+			{ spellID = 139, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Fade / Verblassen
+			{ spellID = 586, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Fear Ward / Furchtzauberschutz
+			{ spellID = 6346, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Inner Will / Innerer Wille
+			{ spellID = 73413, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Archangel / Erzengel
+			{ spellID = 81700, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Dark Archangel / Dunkler Erzengel
+			{ spellID = 87153, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Empowered Shadow / Machterfüllte Schatten
+			{ spellID = 95799, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{
-			name = "P_BUFF_ICON",
-			direction = "LEFT",
-			setPoint = { "right", "oUF_FreebPlayer", "right", 0, -38 },
-			size = 37,
-			
-			--爭分奪秒
-            { spellID = 59888, size = 37, unitId = "player", caster = "all", filter = "BUFF" },
-            --暗影寶珠
-            { spellID = 77487, size = 37, unitId = "player", caster = "all", filter = "BUFF" },	
-            --真言術：壁
-            { spellID = 81782 , size = 37, unitId = "player", caster = "all", filter = "BUFF" },	
-            --光之澎湃
-			{ spellID = 88690, size = 37, unitId = "player", caster = "all", filter = "BUFF" },
-			--機緣回復
-			{ spellID = 63733, size = 37, unitId = "player", caster = "player", filter = "BUFF" },
-			--虚弱靈魂
-			{ spellID = 6788, size = 37, unitId = "player", caster = "all", filter = "DEBUFF" },		
-
-		},
-		{
-			name = "T_DEBUFF_ICON",
+			name = "目标buff",
 			direction = "RIGHT",
-			setPoint = { "left", "oUF_FreebTarget", "left", -1, 65 },
-			size = 37,
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 60 },
+			size = 32,
 			
-			--暗言術:痛
-			{ spellID = 589, size = 37, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--虚弱靈魂
-			{ spellID = 6788, size = 37, unitId = "target", caster = "all", filter = "DEBUFF" },
-			--噬靈瘟疫
-			{ spellID = 2944, size = 37, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--吸血鬼之觸
-            { spellID = 34914, size = 37, unitId = "target", caster = "player", filter = "DEBUFF" },
-			--守護聖靈
-			{ spellID = 47788, size = 37, unitId = "target", caster = "all", filter = "BUFF" },
-			--痛苦壓制
-			{ spellID = 33206, size = 37, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Prayer of Mending / Gebet der Besserung
+			{ spellID = 41635, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Guardian Spirit / Schutzgeist
+			{ spellID = 47788, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Pain Suppression / Schmerzunterdrückung
+			{ spellID = 33206, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Power Word: Shield / Machtwort: Schild
+			{ spellID = 17, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Renew / Erneuerung
+			{ spellID = 139, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Fear Ward / Furchtzauberschutz
+			{ spellID = 6346, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Echo of Light / Echo des Lichts
+			{ spellID = 77489, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Inspiration / Inspiration
+			{ spellID = 15357, unitId = "target", caster = "player", filter = "BUFF" },
+			-- Grace / Barmherzigkeit
+			{ spellID = 77613, unitId = "target", caster = "player", filter = "BUFF" },
 
 		},
 		{
-			name = "P_PRAIDBUFF/DEBUFF_ICON",
+			name = "玩家重要buff",
 			direction = "LEFT",
-			setPoint = { "right", "oUF_FreebPlayer", "right", 0, 40 },
-			size = 45,
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
+			size = 47,
 			
-            --黑天使
-            { spellID = 87153, size = 45, unitId = "player", caster = "player", filter = "BUFF" },
-		    --2T12效果
-            { spellID = 99132, size = 45, unitId = "player", caster = "player", filter = "BUFF" },
-			--嗜血
-			{ spellID = 2825, size = 45, unitId = "player", caster = "all", filter = "BUFF" },
-			--英勇氣概
-			{ spellID = 32182, size = 45, unitId = "player", caster = "all", filter = "BUFF" },
-            --時間扭曲
-			{ spellID = 80353, size = 45, unitId = "player", caster = "all", filter = "BUFF" },
-			--火山藥水
-			{ spellID = 79476, size = 45, unitId = "player", caster = "player", filter = "BUFF" },
-            --激活
-            { spellID = 29166, size = 45, unitId = "player", caster = "all", filter = "BUFF"},
-            --注入能量
-            { spellID = 10060, size = 45, unitId = "player", caster = "all", filter = "BUFF" },	
-			--絕命當頭buff
-			{ spellID = 96907, size = 45, unitId = "player", caster = "player", filter = "DEBUFF" },	
+			-- Surge of Light / Woge des Lichts
+			{ spellID = 88688, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Serendipity / Glücksfall
+			{ spellID = 63735, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Shadow Orb / Schattenkugeln
+			{ spellID = 77487, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Evangelism / Prediger
+			{ spellID = 81661, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Dark Evangelism / Dunkler Prediger
+			{ spellID = 87118, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Dispersion / Dispersion
+			{ spellID = 47585, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Chakra: Serenity / Chakra: Epiphanie
+			{ spellID = 81208, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Chakra: Sanctuary / Chakra: Refugium
+			{ spellID = 81206, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Chakra: Chastise / Chakra: Züchtigung
+			{ spellID = 81209, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{
-			name = "P_BUFF_BAR",
-			direction = "DOWN",
-			setPoint = { "BOTTOM", nil, "BOTTOM", 284, 268 },
-			size = 30, 
+			name = "目标debuff",
+			direction = "RIGHT",
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
+			size = 47,
+			
+			-- Shackle Undead / Untote fesseln
+			{ spellID = 9484, unitId = "target", caster = "all", filter = "DEBUFF" },
+			-- Psychic Scream / Psychischer Schrei
+			{ spellID = 8122, unitId = "target", caster = "all", filter = "DEBUFF" },
+			-- Shadow Word: Pain / Schattenwort: Schmerz
+			{ spellID = 589, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Devouring Plague / Verschlingende Seuche
+			{ spellID = 2944, unitId = "target", caster = "player", filter = "DEBUFF" },
+			-- Vampiric Touch / Vampirberührung
+			{ spellID = 34914, unitId = "target", caster = "player", filter = "DEBUFF" },
+
+		},
+		{
+			name = "焦点debuff",
+			direction = "UP",
+			setpoint = { "BOTTOMLEFT", "oUF_FreebFocus", "TOPLEFT", 0, 10 },
+			size = 32, 
 			mode = "BAR",
 			iconSide = "LEFT",
-			barWidth = 180,
+			barWidth = 170,
 			
-            --大天使
-			{ spellID = 87151, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --暗影魔
-			{ spellID = 34433, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --真言術:壁
-			{ spellID = 62618, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --影散
-			{ spellID = 47585, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
-            --絕望禱言
-			{ spellID = 19236, size = 30, barWidth = 180, unitId = "player", caster = "player", filter = "CD" },
+			-- Shackle Undead / Untote fesseln
+			{ spellID = 9484, unitId = "focus", caster = "all", filter = "DEBUFF" },
+			-- Psychic Scream / Psychischer Schrei
+			{ spellID = 8122, unitId = "focus", caster = "all", filter = "DEBUFF" },
 
 		},
 	},
 	["WARLOCK"]={
 		{
 			name = "目标debuff",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			direction = "RIGHT",
 			mode = "ICON",
 			size = 47,
@@ -671,7 +643,7 @@ ns.watchers ={
 		},
 		{
 			name = "玩家重要buff",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			direction = "LEFT",
 			size = 47,
 			-- Improved Soul Fire / Verbessertes Seelenfeuer
@@ -717,16 +689,6 @@ ns.watchers ={
 			{ spellID = 57934, unitId = "player", caster = "player", filter = "BUFF" },
 			-- Turn the Tables / Den Spieß umdrehen
 			{ spellID = 51627, unitId = "player", caster = "player", filter = "BUFF" },
-			--  贱人乱舞
-			{ spellID = 13877, unitId = "player", caster = "player", filter = "BUFF" },
-			--  绿灯
-			{ spellID = 84745, unitId = "player", caster = "player", filter = "BUFF" },
-			--  黄灯
-			{ spellID = 84746, unitId = "player", caster = "player", filter = "BUFF" },
-			--  红灯
-			{ spellID = 84747, unitId = "player", caster = "player", filter = "BUFF" },
-			-- 恢復
-			{ spellID = 73651, unitId = "player", caster = "player", filter = "BUFF" },
 
 		},
 		{
@@ -778,30 +740,12 @@ ns.watchers ={
 			{ spellID = 6770, unitId = "focus", caster = "all", filter = "DEBUFF" },
 
 		},
-		{
-			name = "CD",
-			direction = "DOWN",
-			iconSide = "LEFT",
-			mode = "BAR",
-			size = 32,
-			barWidth = 200,
-			setpoint = { "TOPLEFT", "ActionBar2Mover", "TOPRIGHT", 10, 0 },
-
-			-- 能量刺激
-			{ spellID = 13750, filter = "CD" },
-			-- 狂舞殘殺
-			{ spellID = 51690, filter = "CD" },
-			--宿怨
-			{ spellID = 79140, filter = "CD" },
-			--冷血
-			{ spellID = 14177, filter = "CD" },
-		},
 	},
 	["DEATHKNIGHT"] = {
 		{
 			name = "玩家重要buff",
 			direction = "LEFT",
-			setpoint = { "RIGHT", UIParent, "CENTER", -198, -190 },
+			setpoint = { "BOTTOMRIGHT", "oUF_FreebPlayer", "TOPRIGHT", 0, 10 },
 			size = 47,
 			
 			-- Blood Shield / Blutschild
@@ -829,7 +773,7 @@ ns.watchers ={
 		{
 			name = "目标debuff",
 			direction = "RIGHT",
-			setpoint = { "LEFT", UIParent, "CENTER", 198, -190 },
+			setpoint = { "BOTTOMLEFT", "oUF_FreebTarget", "TOPLEFT", 0, 10 },
 			size = 47,
 			
 			-- Strangulate / Strangulieren
@@ -849,304 +793,398 @@ ns.watchers ={
 	},
 	["ALL"]={
 		{
-			Name = "PVE/PVP_P_DEBUFF_ICON",
-			Direction = "UP",
-			Interval = 4,
-			Mode = "ICON",
-			setPoint = { "BOTTOM", nil, "BOTTOM", 0, 350 },
-			size = 55, 
-			
-			--活力火花
-            { spellID = 99262, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
-			--佈道
-            { spellID = 81661, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
-			--心靈融烙
-			{ spellID = 14910, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
-			--活力烈焰
-			{ spellID = 99263, size = 47, unitId = "player", caster = "all", filter = "BUFF" },
-            --聚雷針
-             { spellID = 83099, size = 55, unitId = "player", caster = "all", filter = "DEBUFF" }, 
-			--侵蝕魔法
-             { spellID = 86622, size = 55, unitId = "player", caster = "all", filter = "DEBUFF" },
-			--暮光隕星
-            { spellID = 88518, size = 55, unitId = "player", caster = "all", filter = "DEBUFF" },
-			--爆裂灰燼
-            { spellID = 79339, size = 55, unitId = "player", caster = "all", filter = "DEBUFF" },
-			--火焰易傷
-			{ spellID = 98492, size = 55, unitId = "player", caster = "all", filter = "DEBUFF" },
-			--爆裂種子
-			{ spellID = 98450, size = 55, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Death Knight
-			-- 啃食
-			{ spellID = 47481, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 絞殺
-			{ spellID = 47476, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 冰鍊術
-			{ spellID = 45524, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 褻瀆
-			{ spellID = 55741, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 碎心打擊
-			{ spellID = 58617, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 噬溫酷寒
-			{ spellID = 49203, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Druid
-			-- 颶風術
-			{ spellID = 33786, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 休眠
-			{ spellID = 2637, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 重擊
-			{ spellID = 5211, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 傷殘術
-			{ spellID = 22570, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 突襲
-			{ spellID = 9005, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 糾纏根鬚
-			{ spellID = 339, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 野性衝鋒效果
-			{ spellID = 45334, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 感染之傷
-			{ spellID = 58179, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Hunter
-			-- 冰凍陷阱
-			{ spellID = 3355, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 恐嚇野獸
-			{ spellID = 1513, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 驅散射擊
-			{ spellID = 19503, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 奪械
-			{ spellID = 50541, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 沉默射擊
-			{ spellID = 34490, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 脅迫
-			{ spellID = 24394, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 音波衝擊
-			{ spellID = 50519, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 劫掠
-			{ spellID = 50518, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 震盪狙擊
-			{ spellID = 35101, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 震盪射擊
-			--{ spellID = 5116, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 寒冰陷阱
-			{ spellID = 13810, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 凍痕
-			{ spellID = 61394, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 摔絆
-			{ spellID = 2974, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 反擊
-			{ spellID = 19306, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 誘捕
-			{ spellID = 19185, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 釘刺
-			{ spellID = 50245, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 噴灑毒網
-			{ spellID = 54706, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 蛛網
-			{ spellID = 4167, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 霜暴之息
-			{ spellID = 92380, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 裂筋
-			{ spellID = 50271, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Mage
-			-- 龍之吐息
-			{ spellID = 31661, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 變形術
-			{ spellID = 118, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 沉默 - 強化法術反制
-			{ spellID = 18469, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 極度冰凍
-			{ spellID = 44572, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 冰凍術
-			{ spellID = 33395, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 冰霜新星
-			{ spellID = 122, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 碎裂屏障
-			{ spellID = 55080, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 冰凍
-			{ spellID = 6136, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 冰錐術
-			{ spellID = 120, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 減速術
-			{ spellID = 31589, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 強化冰錐術
-			{ spellID = 83301, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			{ spellID = 83302, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Paladin
-			-- 懺悔
-			{ spellID = 20066, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 暈眩 - 復仇之盾
-			{ spellID = 63529, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 制裁之錘
-			{ spellID = 853, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 公正聖印
-			{ spellID = 20170, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 復仇之盾
-			{ spellID = 31935, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Priest
-			-- 心靈恐慌（繳械效果）
-			{ spellID = 64058, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 精神控制
-			{ spellID = 605, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 心靈恐慌
-			{ spellID = 64044, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 心靈尖嘯
-			{ spellID = 8122, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 沉默
-			{ spellID = 15487, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 精神鞭笞
-			{ spellID = 15407, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			--罪與罰
-			{ spellID = 87204, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Rogue
-			-- 卸除武裝
-			{ spellID = 51722, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 致盲
-			{ spellID = 2094, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 鑿擊
-			{ spellID = 1776, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 悶棍
-			{ spellID = 6770, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 絞喉 - 沉默
-			{ spellID = 1330, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 沉默 - 強化腳踢
-			{ spellID = 18425, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 偷襲
-			{ spellID = 1833, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 腎擊
-			{ spellID = 408, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 旋轉劍刃
-			{ spellID = 31125, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 致殘毒藥
-			{ spellID = 3409, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 擲殺
-			{ spellID = 26679, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Shaman
-			-- 妖術
-			{ spellID = 51514, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 陷地
-			{ spellID = 64695, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 凍結
-			{ spellID = 63685, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 石爪昏迷
-			{ spellID = 39796, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 地縛術
-			{ spellID = 3600, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 冰霜震擊
-			{ spellID = 8056, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Warlock
-			-- 放逐術
-			{ spellID = 710, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 死亡纏繞
-			{ spellID = 6789, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 恐懼術
-			{ spellID = 5782, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 恐懼嚎叫
-			{ spellID = 5484, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 誘惑
-			{ spellID = 6358, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 法術封鎖
-			{ spellID = 24259, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 暗影之怒
-			{ spellID = 30283, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 追獵
-			{ spellID = 30153, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 清算
-			{ spellID = 18118, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 疲勞詛咒
-			{ spellID = 18223, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Warrior
-			-- 破膽怒吼
-			{ spellID = 20511, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 繳械
-			{ spellID = 676, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 沉默 - 窒息律令
-			{ spellID = 18498, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 衝鋒昏迷
-			{ spellID = 7922, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 震盪猛擊
-			{ spellID = 12809, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 攔截
-			{ spellID = 20253, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-            -- 震懾波
-			{ spellID = 46968, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 斷筋雕紋
-			{ spellID = 58373, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 強化斷筋
-			{ spellID = 23694, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 斷筋
-			{ spellID = 1715, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 刺耳怒吼
-			{ spellID = 12323, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Racials
-			-- 戰爭踐踏
-			{ spellID = 20549, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			
-		-- Bastion of Twilight
-		
-			--浸濕
-			{ spellID = 82762, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			
-		-- Blackwing Descent
-
-			-- 寄生感染
-			{ spellID = 94679, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 避雷針
-			{ spellID = 91433, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 吞噬烈焰
-			{ spellID = 77786, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-			-- 聚影體
-			{ spellID = 92053, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-
-		-- Firelands
-		
-			-- 燃燒之球
-			{ spellID = 98451, size = 72, unitId = "player", caster = "all", filter = "DEBUFF" },
-		},
-		{
-			Name = "PVP_T_BUFF_ICON",
-			Direction = "RIGHT",
-			Interval = 4,
-			Mode = "ICON",
-			setPoint = { "right", "oUF_FreebTarget", "right", 75, 80 },
+			name = "玩家特殊buff",
+			direction = "LEFT",
+			setpoint = { "TOPRIGHT", "oUF_FreebPlayer", "BOTTOMRIGHT", 0, -10 },
 			size = 55,
 
-			-- 啟動
-			{ spellID = 29166, size = 72, unitId = "target", caster = "all", filter = "BUFF"},
-			-- 法術反射
-			{ spellID = 23920, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 精通光環
-			{ spellID = 31821, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 寒冰屏障
-			{ spellID = 45438, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 暗影披風
-			{ spellID = 31224, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 聖盾術
-			{ spellID = 642, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 威懾
-			{ spellID = 19263, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 反魔法護罩
-			{ spellID = 48707, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 巫妖之軀
-			{ spellID = 49039, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 自由聖禦
-			{ spellID = 1044, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 犧牲聖禦
-			{ spellID = 6940, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			-- 根基圖騰效果
-			{ spellID = 8178, size = 72, unitId = "target", caster = "all", filter = "BUFF" },
-			--保護聖禦
-            { spellID = 1022, size = 72, unitId= "target", caster = "all", filter = "BUFF" },
+		-- Trinket Procs
+			-- Cleansing Tears / Läuternde Tränen (Tear of Blood)
+			
+			{ spellID = 91139, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Fury of the Five Flights / Furor der fünf Schwärme
+			{ spellID = 60314, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Witching Hour / Geisterstunde 
+			{ spellID = 90887, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Heart's Revelation / Erkenntnis des Herzens
+			{ spellID = 91027, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Heart's Judgement / Richturteil des Herzens
+			{ spellID = 91041, unitId = "player", caster = "player", filter = "BUFF" },
+
+		-- Item Enchants - Engineering
+			-- Hyperspeed Accelerators / Hypergeschwindigkeitsbeschleuniger
+			{ spellID = 54758, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Synapse Springs / Synapsenfedern
+			{ spellID = 82175, unitId = "player", caster = "player", filter = "BUFF" },
+
+		-- Item Enchants - Tailoring
+			-- Darkglow / Dunkles Glühen
+			{ spellID = 55767, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Lightweave / Leuchtgarn
+			{ spellID = 55637, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Swordguard / Schwertwallgarn
+			{ spellID = 55775, unitId = "player", caster = "player", filter = "BUFF" },
+
+		-- Item Enchants - Enchanting
+			-- Heartsong / Gesang des Herzens
+			{ spellID = 74224, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Avalanche / Lawine
+			{ spellID = 74196, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Hurricane / Hurrikan
+			{ spellID = 74221, unitId = "player", caster = "player", filter = "BUFF" },
+
+		-- Potions
+			-- Speed / Geschwindigkeit - Potion of Speed
+			{ spellID = 53908, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Wild Magic / Wilde Magie - Potion of Wild Magic
+			{ spellID = 53909, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Earthen Armor / Irdene Rüstung - Earthen Potion
+			{ spellID = 79475, unitId = "player", caster = "player", filter = "BUFF" },
+
+		-- External Buffs
+			-- Tricks of the Trade / Schurkenhandel
+			{ spellID = 57934, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Power Infusion / Seele der Macht
+			{ spellID = 10060, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Bloodlust / Kampfrausch
+			{ spellID = 2825, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Heroism / Heldentum
+			{ spellID = 32182, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Time Warp / Zeitkrümmung
+			{ spellID = 80353, unitId = "player", caster = "all", filter = "BUFF" },
+			-- Ancient Hysteria / Uralte Hysterie (Core Hound)
+			{ spellID = 90355, unitId = "player", caster = "all", filter = "BUFF" },
+
+		},
+		{
+			name = "PVE/PVP目标debuff",
+			direction = "UP",
+			setpoint = { "BOTTOM", UIParent, "BOTTOM", 35, 350 },
+			size = 55,
+			
+		
+			
+		-- Death Knight
+			-- Gnaw (Ghoul)
+			{ spellID = 47481, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Strangulate
+			{ spellID = 47476, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Chains of Ice
+			{ spellID = 45524, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Desecration (no duration, lasts as long as you stand in it)
+			{ spellID = 55741, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Glyph of Heart Strike
+			{ spellID = 58617, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Icy Clutch (Chilblains)
+			--{ spellID = 50436, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Hungering Cold
+			{ spellID = 49203, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Druid
+			-- Cyclone
+			{ spellID = 33786, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Hibernate
+			{ spellID = 2637, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Bash
+			{ spellID = 5211, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Maim
+			{ spellID = 22570, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Pounce
+			{ spellID = 9005, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Entangling Roots
+			{ spellID = 339, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Feral Charge Effect
+			{ spellID = 45334, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Infected Wounds
+			{ spellID = 58179, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Hunter
+			-- Freezing Trap Effect
+			{ spellID = 3355, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Freezing Arrow Effect
+			--{ spellID = 60210, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Scare Beast
+			{ spellID = 1513, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Scatter Shot
+			{ spellID = 19503, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Chimera Shot - Scorpid
+			--{ spellID = 53359, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Snatch (Bird of Prey)
+			{ spellID = 50541, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Silencing Shot
+			{ spellID = 34490, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Intimidation
+			{ spellID = 24394, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Sonic Blast (Bat)
+			{ spellID = 50519, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Ravage (Ravager)
+			{ spellID = 50518, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Concussive Barrage
+			{ spellID = 35101, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Concussive Shot
+			{ spellID = 5116, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Frost Trap Aura
+			{ spellID = 13810, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Glyph of Freezing Trap
+			{ spellID = 61394, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Wing Clip
+			{ spellID = 2974, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Counterattack
+			{ spellID = 19306, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Entrapment
+			{ spellID = 19185, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Pin (Crab)
+			{ spellID = 50245, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Venom Web Spray (Silithid)
+			{ spellID = 54706, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Web (Spider)
+			{ spellID = 4167, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Froststorm Breath (Chimera)
+			{ spellID = 92380, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Tendon Rip (Hyena)
+			{ spellID = 50271, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Mage
+			-- Dragon's Breath
+			{ spellID = 31661, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Polymorph
+			{ spellID = 118, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Silenced - Improved Counterspell
+			{ spellID = 18469, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Deep Freeze
+			{ spellID = 44572, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Freeze (Water Elemental)
+			{ spellID = 33395, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Frost Nova
+			{ spellID = 122, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Shattered Barrier
+			{ spellID = 55080, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Chilled
+			{ spellID = 6136, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Cone of Cold
+			{ spellID = 120, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Slow
+			{ spellID = 31589, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Paladin
+			-- Repentance
+			{ spellID = 20066, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Turn Evil
+			{ spellID = 10326, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Shield of the Templar
+			{ spellID = 63529, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Hammer of Justice
+			{ spellID = 853, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Holy Wrath
+			{ spellID = 2812, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Stun (Seal of Justice proc)
+			{ spellID = 20170, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Avenger's Shield
+			{ spellID = 31935, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Priest
+			-- Psychic Horror
+			{ spellID = 64058, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Mind Control
+			{ spellID = 605, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Psychic Horror
+			{ spellID = 64044, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Psychic Scream
+			{ spellID = 8122, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Silence
+			{ spellID = 15487, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Mind Flay
+			{ spellID = 15407, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Rogue
+			-- Dismantle
+			{ spellID = 51722, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Blind
+			{ spellID = 2094, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Gouge
+			{ spellID = 1776, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Sap
+			{ spellID = 6770, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Garrote - Silence
+			{ spellID = 1330, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Silenced - Improved Kick
+			{ spellID = 18425, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Cheap Shot
+			{ spellID = 1833, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Kidney Shot
+			{ spellID = 408, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Blade Twisting
+			{ spellID = 31125, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Crippling Poison
+			{ spellID = 3409, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Deadly Throw
+			{ spellID = 26679, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Shaman
+			-- Hex
+			{ spellID = 51514, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Earthgrab
+			{ spellID = 64695, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Freeze
+			{ spellID = 63685, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Stoneclaw Stun
+			{ spellID = 39796, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Earthbind
+			{ spellID = 3600, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Frost Shock
+			{ spellID = 8056, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Warlock
+			-- Banish
+			{ spellID = 710, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Death Coil
+			{ spellID = 6789, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Fear
+			{ spellID = 5782, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Howl of Terror
+			{ spellID = 5484, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Seduction (Succubus)
+			{ spellID = 6358, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Spell Lock (Felhunter)
+			{ spellID = 24259, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Shadowfury
+			{ spellID = 30283, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Intercept (Felguard)
+			{ spellID = 30153, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Aftermath
+			{ spellID = 18118, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Curse of Exhaustion
+			{ spellID = 18223, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Warrior
+			-- Intimidating Shout
+			{ spellID = 20511, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Disarm
+			{ spellID = 676, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Silenced (Gag Order)
+			{ spellID = 18498, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Charge Stun
+			{ spellID = 7922, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Concussion Blow
+			{ spellID = 12809, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Intercept
+			{ spellID = 20253, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Revenge Stun
+			--{ spellID = 12798, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Shockwave
+			{ spellID = 46968, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Glyph of Hamstring
+			{ spellID = 58373, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Improved Hamstring
+			{ spellID = 23694, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Hamstring
+			{ spellID = 1715, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Piercing Howl
+			{ spellID = 12323, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Racials
+			-- War Stomp
+			{ spellID = 20549, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Baradin Hold(PvP)
+			-- Meteor Slash / Meteorschlag (Argaloth)
+			{ spellID = 88942, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Bastion of Twilight
+			-- Blackout / Blackout (Valiona & Theralion)
+			{ spellID = 92879, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Engulfing Magic / Einhüllende Magie (Valiona & Theralion)
+			{ spellID = 86631, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Twilight Meteorite / Zwielichtmeteorit (Valiona & Theralion)
+			{ spellID = 86013, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Malevolent Strikes / Bösartige Stöße (Halfus Wyrmbreaker)
+			{ spellID = 39171, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Waterlogged / Wasserdurchtränkt (Twilight Ascendant Council)
+			{ spellID = 82762, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Burning Blood / Brennendes Blut (Twilight Ascendant Council)
+			{ spellID = 82662, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Heart of Ice / Herz aus Eis (Twilight Ascendant Council)
+			{ spellID = 82667, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Frozen / Gefroren (Twilight Ascendant Council)
+			{ spellID = 92503, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Swirling Winds / Wirbelnde Winde (Twilight Ascendant Council)
+			{ spellID = 83500, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Magnetic Pull / Magnetische Anziehung (Twilight Ascendant Council)
+			{ spellID = 83587, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Corruption: Accelerated / Verderbnis: Beschleunigung (Cho'gall)
+			{ spellID = 81836, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Corruption: Malformation / Verderbnis: Missbildung (Cho'gall)
+			{ spellID = 82125, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Corruption: Absolute / Verderbnis: Vollendet (Cho'gall)
+			{ spellID = 82170, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Corruption: Sickness / Verderbnis: Krankheit (Cho'gall)
+			{ spellID = 93200, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Blackwing Descent
+			-- Constricting Chains / Fesselnde Ketten (Magmaw)
+			{ spellID = 91911, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Parasitic Infection / Parasitäre Infektion (Magmaw)
+			{ spellID = 94679, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Infectious Vomit / Infektiöses Erbrochenes (Magmaw)
+			{ spellID = 91923, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Lightning Conductor (Omnitron Defense System)
+			{ spellID = 91433, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Shadow Infusion / Schattenmacht (Omnitron Defense System)
+			{ spellID = 92048, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Flash Freeze / Blitzeis (Maloriak)
+			{ spellID = 77699, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Consuming Flames / Verzehrende Flammen (Maloriak)
+			{ spellID = 77786, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Finkle's Mixture / Finkels Mixtur (Chimaeron)
+			{ spellID = 82705, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Shadow Conductor / Schattenleiter (Nefarian)
+			{ spellID = 92053, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		-- Throne of Four Winds
+			-- Wind Chill / Windkühle (Conclave of Wind)
+			{ spellID = 93123, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Slicing Gale / Schneidender Orkan (Conclave of Wind)
+			{ spellID = 93058, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Static Shock / Statischer Schock (Al'Akir)
+			{ spellID = 87873, unitId = "player", caster = "all", filter = "DEBUFF" },
+			-- Acid Rain / Säureregen (Al'Akir)
+			{ spellID = 93279, unitId = "player", caster = "all", filter = "DEBUFF" },
+
+		},
+		{
+			name = "PVP目标buff",
+			direction = "UP",
+			setpoint = { "BOTTOM", UIParent, "BOTTOM", -35, 350 },
+			size = 55,
+			
+			
+			-- Aspect of the Pack
+			{ spellID = 13159, unitId = "player", caster = "player", filter = "BUFF" },
+			-- Innervate
+			{ spellID = 29166, unitId = "target", caster = "all", filter = "BUFF"},
+			-- Spell Reflection
+			{ spellID = 23920, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Aura Mastery
+			{ spellID = 31821, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Ice Block
+			{ spellID = 45438, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Cloak of Shadows
+			{ spellID = 31224, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Divine Shield
+			{ spellID = 642, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Deterrence
+			{ spellID = 19263, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Anti-Magic Shell
+			{ spellID = 48707, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Lichborne
+			{ spellID = 49039, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Hand of Freedom
+			{ spellID = 1044, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Hand of Sacrifice
+			{ spellID = 6940, unitId = "target", caster = "all", filter = "BUFF" },
+			-- Grounding Totem Effect
+			{ spellID = 8178, unitId = "target", caster = "all", filter = "BUFF" },
+
 		},
 	},
 }
