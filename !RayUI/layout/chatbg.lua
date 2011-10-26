@@ -5,7 +5,7 @@ local R, C, L, DB = unpack(select(2, ...))
 SetCVar("chatStyle", "classic")
 
 local ChatBG = CreateFrame("Frame", "ChatBG", UIParent)
-ChatBG:CreatePanel("Default", 400, 140, "BOTTOMLEFT",UIParent,"BOTTOMLEFT",15,30)
+ChatBG:CreatePanel("Default", 230, 140, "BOTTOMLEFT",UIParent,"BOTTOMLEFT",15,30)--230宽度 自己的小屏幕
 GeneralDockManager:SetParent(ChatBG)
 
 for i=1,NUM_CHAT_WINDOWS do
